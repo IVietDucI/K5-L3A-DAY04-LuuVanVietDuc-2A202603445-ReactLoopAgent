@@ -25,6 +25,7 @@ def run_agent(question, provider, tools, max_steps=6):
     ]
     trace = []
     usage = []
+    incident_urls = set()
 
     def result(status, answer="", error=None):
         output = {
@@ -105,6 +106,14 @@ def run_agent(question, provider, tools, max_steps=6):
                             "message": "Không lấy được dữ liệu từ tool.",
                         }
 
+                # Chỉ lưu nguồn từ incident được đọc thành công.
+                if (
+                    call["name"] == "get_incident_details"
+                    and observation.get("ok") is True
+                    and observation.get("url")
+                ):
+                    incident_urls.add(observation["url"])
+
                 trace.append(
                     {
                         "event": "tool",
@@ -130,6 +139,31 @@ def run_agent(question, provider, tools, max_steps=6):
             answer = message.get("content")
             if not isinstance(answer, str) or not answer.strip():
                 return result("error", error="Model trả lời rỗng.")
+
+            if incident_urls and not any(url in answer for url in incident_urls):
+                trace.append(
+                    {
+                        "event": "validation_missing_source",
+                        "step": step,
+                        "sources": sorted(incident_urls),
+                    }
+                )
+                messages.append(
+                    {
+                        "role": "user",
+                        "content": (
+                            "Câu trả lời thiếu URL nguồn incident đã đọc. "
+                            "Hãy sửa câu trả lời và dẫn nguồn từ danh sách "
+                            "sau, không thêm thông tin chưa xác minh: "
+                            + json.dumps(
+                                sorted(incident_urls),
+                                ensure_ascii=False,
+                            )
+                        ),
+                    }
+                )
+                continue
+
             return result("completed", answer=answer)
 
         return result(
