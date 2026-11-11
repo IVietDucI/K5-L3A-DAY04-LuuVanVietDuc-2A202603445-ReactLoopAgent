@@ -1,6 +1,7 @@
 import json
 
 from status_tools import SCHEMAS
+from tool_retry import ToolRetryBudget
 
 """Bài tập chính: hiện chưa có lời giải. Xem GUIDE.md."""
 
@@ -23,6 +24,13 @@ def run_agent(question, provider, tools, max_steps=6):
     schemas = getattr(tools, "schemas", SCHEMAS)
     system_prompt = getattr(tools, "system_prompt", SYSTEM_PROMPT)
 
+    system_prompt += """
+Khi tool trả RATE_LIMITED, đó không phải bằng chứng dịch vụ outage.
+Chỉ thử lại nếu retry_allowed=true.
+Nếu retry_allowed=false hoặc error=RETRY_LIMIT, dừng truy vấn đó,
+báo không xác nhận được trạng thái và tiếp tục các provider khác nếu cần.
+"""
+
     messages = [
         {"role": "system", "content": system_prompt},
         {"role": "user", "content": question},
@@ -30,6 +38,7 @@ def run_agent(question, provider, tools, max_steps=6):
     trace = []
     usage = []
     incident_urls = set()
+    retry_budget = ToolRetryBudget()
 
     def result(status, answer="", error=None):
         output = {
@@ -102,7 +111,9 @@ def run_agent(question, provider, tools, max_steps=6):
                     }
                 else:
                     try:
-                        observation = tools.execute(call["name"], arguments)
+                        observation = retry_budget.execute(
+                            tools, call["name"], arguments
+                        )
                     except Exception as exc:
                         observation = {
                             "ok": False,
