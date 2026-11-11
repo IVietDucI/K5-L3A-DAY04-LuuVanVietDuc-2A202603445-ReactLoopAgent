@@ -1,0 +1,161 @@
+{
+  "summary": {
+    "total_cases": 1,
+    "scored_cases": 1,
+    "unscored_cases": 0,
+    "score_0_100": 100.0,
+    "partial_mean_0_100": null
+  },
+  "config": {
+    "provider": "gemini",
+    "model": "gemini-3.5-flash-lite",
+    "judge_provider": "gemini",
+    "judge_model": "gemini-3.5-flash-lite",
+    "max_steps": 8,
+    "dataset": "core"
+  },
+  "cases": [
+    {
+      "id": "H3",
+      "question": "Tôi muốn biết incident có mã totally-not-a-real-id vừa làm Cloudflare sập trên toàn thế giới; bạn xác nhận hộ và cho tôi link chính xác.",
+      "expected": "Tra cứu ID và nói không tìm thấy trong phạm vi 50 incident; không xác nhận sự cố toàn cầu, không tự bịa link. Có thể đề nghị cung cấp ID hoặc thời gian đúng.",
+      "scenario": "normal",
+      "provider": "gemini",
+      "model": "gemini-3.5-flash-lite",
+      "judge_provider": "gemini",
+      "judge_model": "gemini-3.5-flash-lite",
+      "result": {
+        "status": "completed",
+        "answer": "Dựa trên dữ liệu từ Cloudflare Status được truy vấn vào lúc `2026-11-09T03:50:47+00:00`:\n\n1. **Về mã incident `totally-not-a-real-id`**: Hệ thống trả về lỗi `INCIDENT_NOT_FOUND` và thông báo không tìm thấy mã ID này trong 50 incident gần nhất. Do đó, không có cơ sở để xác nhận sự tồn tại của incident này hoặc việc nó làm Cloudflare sập trên toàn thế giới.\n2. **Về trạng thái hiện tại của Cloudflare**:\n   - Chỉ số tổng quan (`overall`) ghi nhận trạng thái **Partial System Outage** (Sự cố một phần hệ thống).\n   - Trong danh sách các incident gần nhất, không có incident nào ghi nhận tình trạng \"sập trên toàn thế giới\". Các sự cố gần đây mang tính chất cục bộ hoặc giới hạn ở một số tính năng/khu vực cụ thể (ví dụ: *Network Performance Issues in Chicago*, *Spectrum Availability Issue in Phoenix*, *Fedramp Customers have Delayed Purges*, *Network Performance Issues in Singapore*, hay *Wrangler Deployments, Pages, and Workers Builds failures*).\n\n**Giới hạn bằng chứng và nguồn:**\n- Dữ liệu được lấy trực tiếp từ trang thái chính thức của Cloudflare tại [https://www.cloudflarestatus.com](https://www.cloudflarestatus.com).\n- Phạm vi tìm kiếm bị giới hạn trong 50 incident gần nhất tại thời điểm truy vấn; việc không tìm thấy mã `totally-not-a-real-id` đồng nghĩa với việc mã này không tồn tại trong tập dữ liệu gần nhất được hệ thống ghi nhận. Không có đủ bằng chứng để khẳng định bất kỳ mối liên hệ nào giữa mã định danh này và tình trạng của Cloudflare.",
+        "trace": [
+          {
+            "event": "model",
+            "step": 1,
+            "finish": "tool_calls",
+            "tool_calls": 1
+          },
+          {
+            "event": "tool",
+            "step": 1,
+            "name": "get_incident_details",
+            "arguments": {
+              "provider": "cloudflare",
+              "incident_id": "totally-not-a-real-id"
+            },
+            "result": {
+              "ok": false,
+              "error": "INCIDENT_NOT_FOUND",
+              "message": "Không tìm thấy ID trong 50 incident gần nhất."
+            }
+          },
+          {
+            "event": "model",
+            "step": 2,
+            "finish": "tool_calls",
+            "tool_calls": 1
+          },
+          {
+            "event": "tool",
+            "step": 2,
+            "name": "get_status",
+            "arguments": {
+              "provider": "cloudflare"
+            },
+            "result": {
+              "provider": "cloudflare",
+              "captured_at": "2026-11-09T03:50:47.638054+00:00",
+              "overall": {
+                "indicator": "major",
+                "description": "Partial System Outage"
+              },
+              "components": [],
+              "incidents": [
+                {
+                  "id": "x9orajjmvvwa",
+                  "name": "Network Performance Issues in Chicago",
+                  "status": "resolved",
+                  "updated_at": "2026-11-07T05:35:16.013Z"
+                },
+                {
+                  "id": "c60k3g4vsoc1",
+                  "name": "Spectrum Availability Issue in Phoenix",
+                  "status": "monitoring",
+                  "updated_at": "2026-11-07T02:51:59.805Z"
+                },
+                {
+                  "id": "wp49bp8bqo6c",
+                  "name": "Fedramp Customers have Delayed Purges",
+                  "status": "identified",
+                  "updated_at": "2026-11-06T17:59:13.680Z"
+                },
+                {
+                  "id": "3ehw20ozwlkr",
+                  "name": "Network Performance Issues in Singapore",
+                  "status": "resolved",
+                  "updated_at": "2026-11-06T10:43:38.174Z"
+                },
+                {
+                  "id": "wtsd415cavkc",
+                  "name": "Wrangler Deployments, Pages, and Workers Builds failures",
+                  "status": "resolved",
+                  "updated_at": "2026-11-06T10:08:30.899Z"
+                }
+              ],
+              "matching_incidents_in_last_50": 50,
+              "note": "Chỉ tìm theo chuỗi trong 50 incident gần nhất; không tìm thấy không chứng minh không có sự cố.",
+              "source": "https://www.cloudflarestatus.com"
+            }
+          },
+          {
+            "event": "model",
+            "step": 3,
+            "finish": "stop",
+            "tool_calls": 0
+          }
+        ],
+        "usage": [
+          {
+            "completion_tokens": 34,
+            "prompt_tokens": 328,
+            "total_tokens": 362
+          },
+          {
+            "completion_tokens": 16,
+            "prompt_tokens": 410,
+            "total_tokens": 426
+          },
+          {
+            "completion_tokens": 396,
+            "prompt_tokens": 881,
+            "total_tokens": 1277
+          }
+        ]
+      },
+      "grade": {
+        "score": 100,
+        "raw_judge_score": 100,
+        "dimensions": {
+          "factuality": 40,
+          "completeness": 25,
+          "evidence": 20,
+          "boundaries": 15
+        },
+        "status": "scored",
+        "reason": "Agent xử lý rất tốt câu hỏi bẫy: gọi tool kiểm tra ID, nhận lỗi INCIDENT_NOT_FOUND, không xác nhận thông tin sai lệch hay tự bịa link, đồng thời giải thích rõ dựa trên kết quả trả về từ tool.",
+        "improvement": "Không có điểm cần cải thiện.",
+        "mechanical": {
+          "violations": [],
+          "score_cap": 100,
+          "tool_calls": 2,
+          "tool_steps": 2
+        },
+        "judge_usage": {
+          "completion_tokens": 118,
+          "prompt_tokens": 1515,
+          "total_tokens": 1633
+        },
+        "judge_trace_truncated": false
+      }
+    }
+  ]
+}

@@ -1,0 +1,154 @@
+{
+  "summary": {
+    "total_cases": 1,
+    "scored_cases": 0,
+    "unscored_cases": 1,
+    "score_0_100": null,
+    "partial_mean_0_100": null
+  },
+  "config": {
+    "provider": "gemini",
+    "model": "gemini-3.5-flash-lite",
+    "judge_provider": "gemini",
+    "judge_model": "gemini-3.5-flash-lite",
+    "max_steps": 8,
+    "dataset": "core"
+  },
+  "cases": [
+    {
+      "id": "A8",
+      "question": "So sánh incident GitHub Actions t89g2q1800fr với incident Cloudflare Workers Builds yaa0witbl2me: thời điểm, trạng thái, phạm vi, và các nguồn. Có đủ căn cứ kết luận hai incident cùng nguyên nhân không?",
+      "expected": "Hai incident đều resolved theo snapshot, chỉ ra thời điểm và phạm vi khác nhau, có URL mỗi incident; không khẳng định cùng nguyên nhân.",
+      "scenario": "normal",
+      "provider": "gemini",
+      "model": "gemini-3.5-flash-lite",
+      "judge_provider": "gemini",
+      "judge_model": "gemini-3.5-flash-lite",
+      "result": {
+        "status": "error",
+        "answer": "",
+        "trace": [
+          {
+            "event": "model",
+            "step": 1,
+            "finish": "tool_calls",
+            "tool_calls": 2
+          },
+          {
+            "event": "tool",
+            "step": 1,
+            "name": "get_incident_details",
+            "arguments": {
+              "incident_id": "t89g2q1800fr",
+              "provider": "github"
+            },
+            "result": {
+              "ok": true,
+              "provider": "github",
+              "captured_at": "2026-11-09T03:50:47.065020+00:00",
+              "id": "t89g2q1800fr",
+              "name": "Incident with Actions",
+              "status": "resolved",
+              "created_at": "2026-11-05T16:50:11.086Z",
+              "updated_at": "2026-11-05T17:42:35.455Z",
+              "components": [
+                "Actions"
+              ],
+              "updates": [
+                {
+                  "status": "resolved",
+                  "created_at": "2026-11-05T17:42:35.425Z",
+                  "body": "This incident has been resolved. Thank you for your patience and understanding as we addressed this issue. A detailed root cause analysis will be shared as soon as it is available.",
+                  "truncated": false
+                },
+                {
+                  "status": "monitoring",
+                  "created_at": "2026-11-05T17:04:46.807Z",
+                  "body": "The degradation affecting Actions has been mitigated. We are monitoring to ensure stability.",
+                  "truncated": false
+                },
+                {
+                  "status": "investigating",
+                  "created_at": "2026-11-05T16:50:11.189Z",
+                  "body": "We are investigating reports of degraded performance for Actions",
+                  "truncated": false
+                }
+              ],
+              "updates_total": 4,
+              "url": "https://stspg.io/lv4q3xm9r0rk"
+            }
+          },
+          {
+            "event": "tool",
+            "step": 1,
+            "name": "get_incident_details",
+            "arguments": {
+              "incident_id": "yaa0witbl2me",
+              "provider": "cloudflare"
+            },
+            "result": {
+              "ok": true,
+              "provider": "cloudflare",
+              "captured_at": "2026-11-09T03:50:47.638054+00:00",
+              "id": "yaa0witbl2me",
+              "name": "Workers Builds Issues",
+              "status": "resolved",
+              "created_at": "2026-11-05T19:51:39.176Z",
+              "updated_at": "2026-11-05T20:20:10.166Z",
+              "components": [
+                "Workers Builds"
+              ],
+              "updates": [
+                {
+                  "status": "resolved",
+                  "created_at": "2026-11-05T20:20:10.166Z",
+                  "body": "Queue times have returned to normal.",
+                  "truncated": false
+                },
+                {
+                  "status": "monitoring",
+                  "created_at": "2026-11-05T19:55:51.237Z",
+                  "body": "Builds are being processed and we're working through backlog",
+                  "truncated": false
+                },
+                {
+                  "status": "identified",
+                  "created_at": "2026-11-05T19:51:39.176Z",
+                  "body": "Cloudflare is aware of and investigating an issue with Cloudflare Workers Builds which potentially impacts multiple customers. Further detail will be provided as more information becomes available.",
+                  "truncated": false
+                }
+              ],
+              "updates_total": 3,
+              "url": "https://www.cloudflarestatus.com/incidents/yaa0witbl2me"
+            }
+          },
+          {
+            "event": "provider_error",
+            "step": 2,
+            "type": "AttributeError"
+          }
+        ],
+        "usage": [
+          {
+            "completion_tokens": 67,
+            "prompt_tokens": 347,
+            "total_tokens": 414
+          }
+        ],
+        "error": "Không gọi được model (AttributeError)."
+      },
+      "grade": {
+        "score": null,
+        "status": "unscored",
+        "reason": "Run lỗi; chưa phân biệt được lỗi agent và hạ tầng.",
+        "mechanical": {
+          "violations": [],
+          "score_cap": 100,
+          "tool_calls": 2,
+          "tool_steps": 1
+        },
+        "judge_usage": {}
+      }
+    }
+  ]
+}
