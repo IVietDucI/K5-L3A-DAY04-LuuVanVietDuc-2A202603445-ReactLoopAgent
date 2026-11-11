@@ -127,5 +127,6 @@ Copy-Item -LiteralPath 'eval_before_resumed.json' -Destination 'eval_before.json
 
 So sánh từng case, regression, calls, tokens và cost API thực sự trả. Chi phí
 toàn bộ quá trình lấy từ attempts, tránh cộng trùng active item và history.
-Không coi cost vắng mặt là 0. Cập nhật NOTES, xác nhận lớp trước khi đổi tên
-repo, người thực hiện tự nộp LMS.
+Không coi cost vắng mặt là 0. Cập nhật NOTES; lớp đã xác nhận là L3A, tên repo
+nộp cần dùng là `K5-L3A-DAY04-LuuVanVietDuc-2A202603445-ReactLoopAgent`.
+Người thực hiện tự nộp LMS.

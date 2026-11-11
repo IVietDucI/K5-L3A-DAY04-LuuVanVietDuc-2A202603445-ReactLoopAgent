@@ -4,6 +4,8 @@ Họ và tên: Lưu Văn Việt Đức
 
 MSSV: 2A202603445
 
+Lớp: L3A (người thực hiện đã xác nhận).
+
 Cập nhật offline: 11/11/2026 (giờ Việt Nam).
 
 ## 1. Case được chọn
@@ -140,9 +142,10 @@ sàng. Unit tests không thay thế eval phải nộp.
   minh ngược lịch sử. Đợt resume ghi revision/hash/attempt rõ ràng.
 - Resume hiện chạy lại trọn case unscored, kể cả khi chỉ judge lỗi; chưa có
   judge-only retry. Không chạy lại case đã scored, kể cả scored 0.
-- Tên repo chưa đúng mẫu `K5-L3A-DAY04-...` hoặc `K5-L3B-DAY04-...`; cần xác nhận
-  lớp trước khi đổi tên. Chưa đổi remote, chưa nộp LMS. Vercel bonus là nguồn
-  status, không yêu cầu deploy.
+- Lớp đã xác nhận là L3A. Tên repo cần dùng theo SUBMISSION.md:
+  `K5-L3A-DAY04-LuuVanVietDuc-2A202603445-ReactLoopAgent`.
+  Chưa đổi tên repo/remote, chưa nộp LMS. Vercel bonus là nguồn status,
+  không yêu cầu deploy.
 - File nộp cuối: `agent.py`, `tool_retry.py`, `eval_before.json` đủ 22/22,
   `eval_after.json` đủ 22/22, `NOTES.md`; nếu bonus thêm `eval_bonus.json` đủ 10/10.
   Giữ evidence lần chạy dở và file gốc của đề.
