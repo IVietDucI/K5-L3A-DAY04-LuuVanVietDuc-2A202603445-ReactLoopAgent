@@ -1,0 +1,201 @@
+{
+  "summary": {
+    "total_cases": 1,
+    "scored_cases": 1,
+    "unscored_cases": 0,
+    "score_0_100": 100.0,
+    "partial_mean_0_100": null,
+    "bonus_points_0_15": null
+  },
+  "config": {
+    "provider": "gemini",
+    "model": "gemini-3.5-flash-lite",
+    "judge_provider": "gemini",
+    "judge_model": "gemini-3.5-flash-lite",
+    "max_steps": 16,
+    "dataset": "bonus"
+  },
+  "cases": [
+    {
+      "id": "B5",
+      "question": "Xem chi tiết npm incident cc0t2r4403sy. Nếu tool báo tham số offset/limit sai định dạng, sửa lại, đọc kết quả và dẫn nguồn.",
+      "expected": "Lần đầu get_incident_details bị lỗi INVALID_ARGUMENTS giả lập, sau đó gọi lại offset/limit đúng integer. Incident npm package publish resolved và có URL nguồn.",
+      "scenario": "format_once",
+      "provider": "gemini",
+      "model": "gemini-3.5-flash-lite",
+      "judge_provider": "gemini",
+      "judge_model": "gemini-3.5-flash-lite",
+      "result": {
+        "status": "completed",
+        "answer": "Dựa trên dữ liệu từ công cụ (tại thời điểm snapshot `2026-11-10T14:45:51.077785+00:00`), chi tiết về npm incident `cc0t2r4403sy` như sau:\n\n* **Tên incident:** Minor issues impacting package publish\n* **Trạng thái incident:** Resolved\n* **Thành phần ảnh hưởng (Components):** Package publishing\n* **Thời gian tạo:** `2026-11-07T14:28:25.152Z`\n* **Cập nhật gần nhất:** `2026-11-07T15:05:05.127Z`\n* **Tổng số bản cập nhật (Updates):** 3 bản cập nhật (đã đọc toàn bộ qua các trang offset 0 và offset 2)\n\n**Chi tiết các mốc cập nhật:**\n1. **2026-11-07T15:05:04.230Z:** *\"This incident has been resolved.\"* (Trạng thái: `resolved`)\n2. **2026-11-07T14:37:37.608Z:** *\"A fix has been implemented and we are monitoring the results.\"* (Trạng thái: `monitoring`)\n3. **2026-11-07T14:28:25.288Z:** *\"We are currently investigating this issue.\"* (Trạng thái: `investigating`)\n\n**Nguồn:** [https://stspg.io/tf64mpt4xjfv](https://stspg.io/tf64mpt4xjfv)",
+        "trace": [
+          {
+            "event": "model",
+            "step": 1,
+            "finish": "tool_calls",
+            "tool_calls": 1
+          },
+          {
+            "event": "tool",
+            "step": 1,
+            "name": "get_incident_details",
+            "arguments": {
+              "offset": 0,
+              "provider": "npm",
+              "limit": 3,
+              "incident_id": "cc0t2r4403sy"
+            },
+            "result": {
+              "ok": false,
+              "error": "INVALID_ARGUMENTS",
+              "message": "Lỗi định dạng giả lập. offset và limit phải là integer; limit từ 1 đến 3."
+            }
+          },
+          {
+            "event": "model",
+            "step": 2,
+            "finish": "tool_calls",
+            "tool_calls": 1
+          },
+          {
+            "event": "tool",
+            "step": 2,
+            "name": "get_incident_details",
+            "arguments": {
+              "provider": "npm",
+              "limit": 2,
+              "offset": 0,
+              "incident_id": "cc0t2r4403sy"
+            },
+            "result": {
+              "ok": true,
+              "provider": "npm",
+              "id": "cc0t2r4403sy",
+              "name": "Minor issues impacting package publish",
+              "status": "resolved",
+              "created_at": "2026-11-07T14:28:25.152Z",
+              "updated_at": "2026-11-07T15:05:05.127Z",
+              "captured_at": "2026-11-10T14:45:51.077785+00:00",
+              "components": [
+                "Package publishing"
+              ],
+              "updates": [
+                {
+                  "status": "resolved",
+                  "created_at": "2026-11-07T15:05:04.230Z",
+                  "body": "This incident has been resolved.",
+                  "truncated": false
+                },
+                {
+                  "status": "monitoring",
+                  "created_at": "2026-11-07T14:37:37.608Z",
+                  "body": "A fix has been implemented and we are monitoring the results.",
+                  "truncated": false
+                }
+              ],
+              "offset": 0,
+              "total_updates": 3,
+              "next_offset": 2,
+              "url": "https://stspg.io/tf64mpt4xjfv"
+            }
+          },
+          {
+            "event": "model",
+            "step": 3,
+            "finish": "tool_calls",
+            "tool_calls": 1
+          },
+          {
+            "event": "tool",
+            "step": 3,
+            "name": "get_incident_details",
+            "arguments": {
+              "incident_id": "cc0t2r4403sy",
+              "limit": 1,
+              "provider": "npm",
+              "offset": 2
+            },
+            "result": {
+              "ok": true,
+              "provider": "npm",
+              "id": "cc0t2r4403sy",
+              "name": "Minor issues impacting package publish",
+              "status": "resolved",
+              "created_at": "2026-11-07T14:28:25.152Z",
+              "updated_at": "2026-11-07T15:05:05.127Z",
+              "captured_at": "2026-11-10T14:45:51.077785+00:00",
+              "components": [
+                "Package publishing"
+              ],
+              "updates": [
+                {
+                  "status": "investigating",
+                  "created_at": "2026-11-07T14:28:25.288Z",
+                  "body": "We are currently investigating this issue.",
+                  "truncated": false
+                }
+              ],
+              "offset": 2,
+              "total_updates": 3,
+              "next_offset": null,
+              "url": "https://stspg.io/tf64mpt4xjfv"
+            }
+          },
+          {
+            "event": "model",
+            "step": 4,
+            "finish": "stop",
+            "tool_calls": 0
+          }
+        ],
+        "usage": [
+          {
+            "completion_tokens": 43,
+            "prompt_tokens": 926,
+            "total_tokens": 969
+          },
+          {
+            "completion_tokens": 43,
+            "prompt_tokens": 1025,
+            "total_tokens": 1068
+          },
+          {
+            "completion_tokens": 43,
+            "prompt_tokens": 1390,
+            "total_tokens": 1433
+          },
+          {
+            "completion_tokens": 400,
+            "prompt_tokens": 1698,
+            "total_tokens": 2098
+          }
+        ]
+      },
+      "grade": {
+        "score": 100,
+        "raw_judge_score": 100,
+        "dimensions": {
+          "factuality": 40,
+          "completeness": 25,
+          "evidence": 20,
+          "boundaries": 15
+        },
+        "status": "scored",
+        "reason": "Agent hoàn thành xuất sắc yêu cầu: xử lý lỗi offset/limit lần đầu, gọi lại với tham số đúng, thu thập đủ toàn bộ các cập nhật của incident, và cung cấp URL nguồn chính xác.",
+        "improvement": "Không có.",
+        "mechanical": {
+          "violations": [],
+          "score_cap": 100,
+          "tool_calls": 3,
+          "tool_steps": 3
+        },
+        "judge_usage": {
+          "completion_tokens": 104,
+          "prompt_tokens": 1787,
+          "total_tokens": 1891
+        },
+        "judge_trace_truncated": false
+      }
+    }
+  ]
+}

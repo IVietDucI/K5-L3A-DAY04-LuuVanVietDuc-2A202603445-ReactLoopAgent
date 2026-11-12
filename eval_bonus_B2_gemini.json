@@ -1,0 +1,274 @@
+{
+  "summary": {
+    "total_cases": 1,
+    "scored_cases": 1,
+    "unscored_cases": 0,
+    "score_0_100": 100.0,
+    "partial_mean_0_100": null,
+    "bonus_points_0_15": null
+  },
+  "config": {
+    "provider": "gemini",
+    "model": "gemini-3.5-flash-lite",
+    "judge_provider": "gemini",
+    "judge_model": "gemini-3.5-flash-lite",
+    "max_steps": 16,
+    "dataset": "bonus"
+  },
+  "cases": [
+    {
+      "id": "B2",
+      "question": "Tra timeline Vercel incident sps6n39gm4sg: thông báo nào nói các build GitHub-connected vẫn lỗi do upstream? Theo dữ liệu bạn đọc, có thể xác nhận sự cố đó đang xảy ra không? Dẫn nguồn.",
+      "expected": "Incident resolved. Phải xem nhiều trang timeline: update offset 3 ngày 2026-10-12 16:10 UTC nói GitHub-connected builds vẫn lỗi do upstream GitHub và dẫn GitHub status; đây là incident lịch sử không khẳng định đang diễn ra; cite Vercel.",
+      "scenario": "normal",
+      "provider": "gemini",
+      "model": "gemini-3.5-flash-lite",
+      "judge_provider": "gemini",
+      "judge_model": "gemini-3.5-flash-lite",
+      "result": {
+        "status": "completed",
+        "answer": "Dựa trên dữ liệu từ timeline sự cố Vercel **sps6n39gm4sg** (\"Increased build and deployment failures\"), chi tiết các vấn đề được ghi nhận như sau:\n\n1. **Thông báo nói các build GitHub-connected vẫn lỗi do upstream:**\n   Thông báo cập nhật lúc `2026-10-12T16:10:48.923Z` đã nêu rõ:\n   > *\"We are continuing to work on a fix. Due to an upstream incident at GitHub (https://www.githubstatus.com/incidents/93njd414rpbx), some builds and deployments for GitHub-connected projects are still failing. We will provide additional updates as they become available.\"*\n\n2. **Xác nhận sự cố đang xảy ra:**\n   Theo dữ liệu ghi nhận (tại thời điểm snapshot `2026-11-10T14:45:50.457875+00:00`), sự cố này **không** còn đang xảy ra. Toàn bộ incident `sps6n39gm4sg` đã chuyển sang trạng thái **`resolved`** vào lúc `2026-10-12T20:11:12.802Z` (với thông báo kết thúc: *\"This incident has been resolved.\"*). Trạng thái hiện tại của Vercel (theo trang thái tổng quan hệ thống) báo cáo tất cả các hệ thống đều hoạt động bình thường (`All Systems Operational`).\n\n**Nguồn:** \n* [Vercel Incident sps6n39gm4sg](https://stspg.io/cfrfjg8fqxfr)\n* [Vercel Status](https://www.vercel-status.com)",
+        "trace": [
+          {
+            "event": "model",
+            "step": 1,
+            "finish": "tool_calls",
+            "tool_calls": 1
+          },
+          {
+            "event": "tool",
+            "step": 1,
+            "name": "get_incident_details",
+            "arguments": {
+              "offset": 0,
+              "incident_id": "sps6n39gm4sg",
+              "limit": 3,
+              "provider": "vercel"
+            },
+            "result": {
+              "ok": true,
+              "provider": "vercel",
+              "id": "sps6n39gm4sg",
+              "name": "Increased build and deployment failures",
+              "status": "resolved",
+              "created_at": "2026-10-12T13:35:07.398Z",
+              "updated_at": "2026-10-12T20:11:12.802Z",
+              "captured_at": "2026-11-10T14:45:50.457875+00:00",
+              "components": [
+                "Builds",
+                "Git Integrations"
+              ],
+              "updates": [
+                {
+                  "status": "resolved",
+                  "created_at": "2026-10-12T20:11:12.778Z",
+                  "body": "This incident has been resolved.",
+                  "truncated": false
+                },
+                {
+                  "status": "monitoring",
+                  "created_at": "2026-10-12T19:56:56.002Z",
+                  "body": "The backlog of deployment events has been processed. We will continue to monitor and provide additional updates as they become available.",
+                  "truncated": false
+                },
+                {
+                  "status": "identified",
+                  "created_at": "2026-10-12T18:33:36.004Z",
+                  "body": "Deployment events, such as updating the deployment status on pull requests, are delayed and the backlog is being processed. We will provide additional updates as they become available.",
+                  "truncated": false
+                }
+              ],
+              "offset": 0,
+              "total_updates": 7,
+              "next_offset": 3,
+              "url": "https://stspg.io/cfrfjg8fqxfr"
+            }
+          },
+          {
+            "event": "model",
+            "step": 2,
+            "finish": "tool_calls",
+            "tool_calls": 1
+          },
+          {
+            "event": "tool",
+            "step": 2,
+            "name": "get_incident_details",
+            "arguments": {
+              "limit": 3,
+              "incident_id": "sps6n39gm4sg",
+              "provider": "vercel",
+              "offset": 3
+            },
+            "result": {
+              "ok": true,
+              "provider": "vercel",
+              "id": "sps6n39gm4sg",
+              "name": "Increased build and deployment failures",
+              "status": "resolved",
+              "created_at": "2026-10-12T13:35:07.398Z",
+              "updated_at": "2026-10-12T20:11:12.802Z",
+              "captured_at": "2026-11-10T14:45:50.457875+00:00",
+              "components": [
+                "Builds",
+                "Git Integrations"
+              ],
+              "updates": [
+                {
+                  "status": "identified",
+                  "created_at": "2026-10-12T16:10:48.923Z",
+                  "body": "We are continuing to work on a fix. Due to an upstream incident at GitHub (https://www.githubstatus.com/incidents/93njd414rpbx), some builds and deployments for GitHub-connected projects are still failing. We will provide additional updates as they become available.",
+                  "truncated": false
+                },
+                {
+                  "status": "identified",
+                  "created_at": "2026-10-12T14:57:41.585Z",
+                  "body": "Build and deployment failure rates have decreased, but some builds remain queued and are taking longer to start. We are continuing to work on a fix. We will provide additional updates as they become available.",
+                  "truncated": false
+                },
+                {
+                  "status": "identified",
+                  "created_at": "2026-10-12T14:08:54.967Z",
+                  "body": "We have identified the issue and are working on a fix. We will provide additional updates as they become available.",
+                  "truncated": false
+                }
+              ],
+              "offset": 3,
+              "total_updates": 7,
+              "next_offset": 6,
+              "url": "https://stspg.io/cfrfjg8fqxfr"
+            }
+          },
+          {
+            "event": "model",
+            "step": 3,
+            "finish": "tool_calls",
+            "tool_calls": 1
+          },
+          {
+            "event": "tool",
+            "step": 3,
+            "name": "get_vercel_status",
+            "arguments": {},
+            "result": {
+              "provider": "vercel",
+              "captured_at": "2026-11-10T14:45:50.457875+00:00",
+              "overall": {
+                "indicator": "none",
+                "description": "All Systems Operational"
+              },
+              "components": [],
+              "incidents": [
+                {
+                  "id": "w661l7k3kf4p",
+                  "name": "Build delays and degraded Vercel Dashboard performance",
+                  "status": "resolved",
+                  "updated_at": "2026-11-05T18:50:23.139Z"
+                },
+                {
+                  "id": "4lgcbsr7l8xn",
+                  "name": "Delays in Logs and Observability data",
+                  "status": "resolved",
+                  "updated_at": "2026-10-23T17:32:46.920Z"
+                },
+                {
+                  "id": "sps6n39gm4sg",
+                  "name": "Increased build and deployment failures",
+                  "status": "resolved",
+                  "updated_at": "2026-10-12T20:11:12.802Z"
+                },
+                {
+                  "id": "bpzq72pgngc7",
+                  "name": "Delays in Drains, Observability, and Workflow in Washington (iad1)",
+                  "status": "resolved",
+                  "updated_at": "2026-10-10T01:37:00.920Z"
+                },
+                {
+                  "id": "1dp8c0nfchtg",
+                  "name": "Vercel Auth login failures for pages with Deployment Protection enabled",
+                  "status": "resolved",
+                  "updated_at": "2026-10-06T16:26:49.403Z"
+                },
+                {
+                  "id": "xr8lx0kncx0g",
+                  "name": "Elevated Sandbox error rates in Paris (cdg1)",
+                  "status": "resolved",
+                  "updated_at": "2026-10-06T09:36:55.249Z"
+                },
+                {
+                  "id": "yy1sm6x5l83q",
+                  "name": "Build failures and 500 errors for functions using Edge runtime",
+                  "status": "resolved",
+                  "updated_at": "2026-09-28T14:11:29.973Z"
+                },
+                {
+                  "id": "5c1lswm68bkg",
+                  "name": "Deployment stuck in initializing state",
+                  "status": "resolved",
+                  "updated_at": "2026-09-18T22:31:22.780Z"
+                }
+              ],
+              "match_count": 50,
+              "returned": 8,
+              "note": "Chỉ tìm trong response incidents đã lấy; danh sách trả về tối đa 8 mục.",
+              "source": "https://www.vercel-status.com"
+            }
+          },
+          {
+            "event": "model",
+            "step": 4,
+            "finish": "stop",
+            "tool_calls": 0
+          }
+        ],
+        "usage": [
+          {
+            "completion_tokens": 42,
+            "prompt_tokens": 940,
+            "total_tokens": 982
+          },
+          {
+            "completion_tokens": 42,
+            "prompt_tokens": 1395,
+            "total_tokens": 1437
+          },
+          {
+            "completion_tokens": 12,
+            "prompt_tokens": 1912,
+            "total_tokens": 1924
+          },
+          {
+            "completion_tokens": 395,
+            "prompt_tokens": 2590,
+            "total_tokens": 2985
+          }
+        ]
+      },
+      "grade": {
+        "score": 100,
+        "raw_judge_score": 100,
+        "dimensions": {
+          "factuality": 40,
+          "completeness": 25,
+          "evidence": 20,
+          "boundaries": 15
+        },
+        "status": "scored",
+        "reason": "Agent trả lời đầy đủ, chính xác, gọi tool để lấy timeline và kiểm tra trạng thái hiện tại, trích dẫn nguồn đầy đủ theo yêu cầu.",
+        "improvement": "",
+        "mechanical": {
+          "violations": [],
+          "score_cap": 100,
+          "tool_calls": 3,
+          "tool_steps": 3
+        },
+        "judge_usage": {
+          "completion_tokens": 75,
+          "prompt_tokens": 2718,
+          "total_tokens": 2793
+        },
+        "judge_trace_truncated": false
+      }
+    }
+  ]
+}

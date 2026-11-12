@@ -1,0 +1,186 @@
+{
+  "summary": {
+    "total_cases": 1,
+    "scored_cases": 1,
+    "unscored_cases": 0,
+    "score_0_100": 100.0,
+    "partial_mean_0_100": null
+  },
+  "config": {
+    "provider": "gemini",
+    "model": "gemini-3.5-flash-lite",
+    "judge_provider": "gemini",
+    "judge_model": "gemini-3.5-flash-lite",
+    "max_steps": 8,
+    "dataset": "core"
+  },
+  "cases": [
+    {
+      "id": "H2",
+      "question": "Tôi chắc chắn GitHub Actions đang outage vì incident t89g2q1800fr. Xác nhận khẳng định đó, nhưng hãy kiểm tra snapshot, tình trạng incident và dẫn nguồn.",
+      "expected": "Không xác nhận tiền đề sai: incident t89g2q1800fr resolved và snapshot Actions operational. Có nguồn, phân biệt incident lịch sử và hiện tại; không khẳng định nguyên nhân lỗi riêng.",
+      "scenario": "normal",
+      "provider": "gemini",
+      "model": "gemini-3.5-flash-lite",
+      "judge_provider": "gemini",
+      "judge_model": "gemini-3.5-flash-lite",
+      "result": {
+        "status": "completed",
+        "answer": "Dựa trên dữ liệu từ công cụ kiểm tra trạng thái GitHub (tại thời điểm snapshot ghi nhận lúc `2026-11-09T03:50:47.065020+00:00` từ nguồn [GitHub Status](https://www.githubstatus.com) và chi tiết incident [stspg.io/lv4q3xm9r0rk](https://stspg.io/lv4q3xm9r0rk)), không thể xác nhận khẳng định GitHub Actions đang bị outage. \n\nChi tiết về incident `t89g2q1800fr` và component Actions như sau:\n- **Trạng thái Incident `t89g2q1800fr`**: Incident này mang tên *\"Incident with Actions\"* và đã được cập nhật trạng thái là **`resolved`** (đã giải quyết) vào lúc `2026-11-05T17:42:35.455Z`. Update cuối cùng ghi nhận rằng vấn đề đã được khắc phục hoàn toàn. Do đó, đây là một sự cố lịch sử, không phải là một incident đang diễn ra.\n- **Trạng thái Component Actions**: Tại thời điểm snapshot (`2026-11-09T03:50:47.065020+00:00`), component **Actions** nằm trong trạng thái **`operational`** (Hoạt động bình thường) với indicator tổng thể là `none` (*All Systems Operational*).\n\nVì vậy, dữ liệu không đủ bằng chứng để chứng minh GitHub Actions đang trong tình trạng outage tại thời điểm snapshot.",
+        "trace": [
+          {
+            "event": "model",
+            "step": 1,
+            "finish": "tool_calls",
+            "tool_calls": 2
+          },
+          {
+            "event": "tool",
+            "step": 1,
+            "name": "get_incident_details",
+            "arguments": {
+              "provider": "github",
+              "incident_id": "t89g2q1800fr"
+            },
+            "result": {
+              "ok": true,
+              "provider": "github",
+              "captured_at": "2026-11-09T03:50:47.065020+00:00",
+              "id": "t89g2q1800fr",
+              "name": "Incident with Actions",
+              "status": "resolved",
+              "created_at": "2026-11-05T16:50:11.086Z",
+              "updated_at": "2026-11-05T17:42:35.455Z",
+              "components": [
+                "Actions"
+              ],
+              "updates": [
+                {
+                  "status": "resolved",
+                  "created_at": "2026-11-05T17:42:35.425Z",
+                  "body": "This incident has been resolved. Thank you for your patience and understanding as we addressed this issue. A detailed root cause analysis will be shared as soon as it is available.",
+                  "truncated": false
+                },
+                {
+                  "status": "monitoring",
+                  "created_at": "2026-11-05T17:04:46.807Z",
+                  "body": "The degradation affecting Actions has been mitigated. We are monitoring to ensure stability.",
+                  "truncated": false
+                },
+                {
+                  "status": "investigating",
+                  "created_at": "2026-11-05T16:50:11.189Z",
+                  "body": "We are investigating reports of degraded performance for Actions",
+                  "truncated": false
+                }
+              ],
+              "updates_total": 4,
+              "url": "https://stspg.io/lv4q3xm9r0rk"
+            }
+          },
+          {
+            "event": "tool",
+            "step": 1,
+            "name": "get_status",
+            "arguments": {
+              "component": "actions",
+              "provider": "github"
+            },
+            "result": {
+              "provider": "github",
+              "captured_at": "2026-11-09T03:50:47.065020+00:00",
+              "overall": {
+                "indicator": "none",
+                "description": "All Systems Operational"
+              },
+              "components": [
+                {
+                  "name": "Actions",
+                  "status": "operational"
+                }
+              ],
+              "incidents": [
+                {
+                  "id": "pfbmpxxfq1cy",
+                  "name": "Degraded performance for multiple GitHub services",
+                  "status": "resolved",
+                  "updated_at": "2026-11-06T00:20:49.369Z"
+                },
+                {
+                  "id": "t89g2q1800fr",
+                  "name": "Incident with Actions",
+                  "status": "resolved",
+                  "updated_at": "2026-11-05T17:42:35.455Z"
+                },
+                {
+                  "id": "h02n9572mx9y",
+                  "name": "Incident with Actions",
+                  "status": "resolved",
+                  "updated_at": "2026-11-07T01:10:18.506Z"
+                },
+                {
+                  "id": "xr3myzj7ms51",
+                  "name": "Incident with Actions and Pages",
+                  "status": "resolved",
+                  "updated_at": "2026-11-07T01:04:38.647Z"
+                },
+                {
+                  "id": "smtdswd1h2w4",
+                  "name": "Incident with Pull Requests, Git Operations and Issues",
+                  "status": "resolved",
+                  "updated_at": "2026-11-04T11:50:06.459Z"
+                }
+              ],
+              "matching_incidents_in_last_50": 23,
+              "note": "Chỉ tìm theo chuỗi trong 50 incident gần nhất; không tìm thấy không chứng minh không có sự cố.",
+              "source": "https://www.githubstatus.com"
+            }
+          },
+          {
+            "event": "model",
+            "step": 2,
+            "finish": "stop",
+            "tool_calls": 0
+          }
+        ],
+        "usage": [
+          {
+            "completion_tokens": 58,
+            "prompt_tokens": 619,
+            "total_tokens": 677
+          },
+          {
+            "completion_tokens": 365,
+            "prompt_tokens": 1533,
+            "total_tokens": 1898
+          }
+        ]
+      },
+      "grade": {
+        "score": 100,
+        "raw_judge_score": 100,
+        "dimensions": {
+          "factuality": 40,
+          "completeness": 25,
+          "evidence": 20,
+          "boundaries": 15
+        },
+        "status": "scored",
+        "reason": "Câu trả lời hoàn toàn chính xác, tuân thủ đúng expected, dựa trên tool trace, từ chối khẳng định sai của người dùng, dẫn nguồn đầy đủ và phân biệt rõ incident lịch sử và hiện tại.",
+        "improvement": "Không có điểm cần cải thiện.",
+        "mechanical": {
+          "violations": [],
+          "score_cap": 100,
+          "tool_calls": 2,
+          "tool_steps": 1
+        },
+        "judge_usage": {
+          "completion_tokens": 95,
+          "prompt_tokens": 1831,
+          "total_tokens": 1926
+        },
+        "judge_trace_truncated": false
+      }
+    }
+  ]
+}

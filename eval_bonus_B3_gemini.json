@@ -1,0 +1,267 @@
+{
+  "summary": {
+    "total_cases": 1,
+    "scored_cases": 1,
+    "unscored_cases": 0,
+    "score_0_100": 100.0,
+    "partial_mean_0_100": null,
+    "bonus_points_0_15": null
+  },
+  "config": {
+    "provider": "gemini",
+    "model": "gemini-3.5-flash-lite",
+    "judge_provider": "gemini",
+    "judge_model": "gemini-3.5-flash-lite",
+    "max_steps": 16,
+    "dataset": "bonus"
+  },
+  "cases": [
+    {
+      "id": "B3",
+      "question": "Kiểm tra trạng thái Vercel hiện tại theo snapshot. Nếu gặp rate limit, thử lại có giới hạn và cho biết kết quả cùng nguồn.",
+      "expected": "Lần đầu get_vercel_status trả 429 giả lập, lần sau thành công none/All Systems Operational. Nêu timestamp và nguồn; không coi 429 là outage Vercel.",
+      "scenario": "rate_limit_once",
+      "provider": "gemini",
+      "model": "gemini-3.5-flash-lite",
+      "judge_provider": "gemini",
+      "judge_model": "gemini-3.5-flash-lite",
+      "result": {
+        "status": "completed",
+        "answer": "Dựa trên snapshot dữ liệu trạng thái của **Vercel** tại thời điểm `2026-11-10T14:45:50.457875+00:00`:\n\n- **Trạng thái tổng quan (`overall`):** `none` (All Systems Operational - Tất cả các hệ thống hoạt động bình thường).\n- **Incident gần đây được ghi nhận trong lịch sử:** Incident `w661l7k3kf4p` với tên *\"Build delays and degraded Vercel Dashboard performance\"* (ảnh hưởng các component `Dashboard` và `Builds`).\n  - **Trạng thái Incident:** Đã được giải quyết (`resolved`) vào lúc `2026-11-05T18:50:23.139Z`.\n  - **Cập nhật cuối cùng của incident:** *\"This incident has been resolved. The build backlog has been cleared.\"*\n\n*Lưu ý:* Việc gặp giới hạn tốc độ (rate limit) trong các lần truy vấn đầu đã được tự động thử lại theo đúng giới hạn cho phép trước khi lấy được dữ liệu thành công.\n\n**Nguồn:** [Vercel Status](https://www.vercel-status.com) (Chi tiết incident: [stspg.io](https://stspg.io/y6fmg7s9m5t2)).",
+        "trace": [
+          {
+            "event": "model",
+            "step": 1,
+            "finish": "tool_calls",
+            "tool_calls": 1
+          },
+          {
+            "event": "tool",
+            "step": 1,
+            "name": "get_vercel_status",
+            "arguments": {},
+            "result": {
+              "ok": false,
+              "error": "RATE_LIMITED",
+              "http_status": 429,
+              "retry_after_seconds": 0,
+              "retriable": true,
+              "message": "429 giả lập; retry có giới hạn.",
+              "retry_allowed": true,
+              "rate_limit_count": 1
+            }
+          },
+          {
+            "event": "model",
+            "step": 2,
+            "finish": "tool_calls",
+            "tool_calls": 1
+          },
+          {
+            "event": "tool",
+            "step": 2,
+            "name": "get_vercel_status",
+            "arguments": {},
+            "result": {
+              "provider": "vercel",
+              "captured_at": "2026-11-10T14:45:50.457875+00:00",
+              "overall": {
+                "indicator": "none",
+                "description": "All Systems Operational"
+              },
+              "components": [],
+              "incidents": [
+                {
+                  "id": "w661l7k3kf4p",
+                  "name": "Build delays and degraded Vercel Dashboard performance",
+                  "status": "resolved",
+                  "updated_at": "2026-11-05T18:50:23.139Z"
+                },
+                {
+                  "id": "4lgcbsr7l8xn",
+                  "name": "Delays in Logs and Observability data",
+                  "status": "resolved",
+                  "updated_at": "2026-10-23T17:32:46.920Z"
+                },
+                {
+                  "id": "sps6n39gm4sg",
+                  "name": "Increased build and deployment failures",
+                  "status": "resolved",
+                  "updated_at": "2026-10-12T20:11:12.802Z"
+                },
+                {
+                  "id": "bpzq72pgngc7",
+                  "name": "Delays in Drains, Observability, and Workflow in Washington (iad1)",
+                  "status": "resolved",
+                  "updated_at": "2026-10-10T01:37:00.920Z"
+                },
+                {
+                  "id": "1dp8c0nfchtg",
+                  "name": "Vercel Auth login failures for pages with Deployment Protection enabled",
+                  "status": "resolved",
+                  "updated_at": "2026-10-06T16:26:49.403Z"
+                },
+                {
+                  "id": "xr8lx0kncx0g",
+                  "name": "Elevated Sandbox error rates in Paris (cdg1)",
+                  "status": "resolved",
+                  "updated_at": "2026-10-06T09:36:55.249Z"
+                },
+                {
+                  "id": "yy1sm6x5l83q",
+                  "name": "Build failures and 500 errors for functions using Edge runtime",
+                  "status": "resolved",
+                  "updated_at": "2026-09-28T14:11:29.973Z"
+                },
+                {
+                  "id": "5c1lswm68bkg",
+                  "name": "Deployment stuck in initializing state",
+                  "status": "resolved",
+                  "updated_at": "2026-09-18T22:31:22.780Z"
+                }
+              ],
+              "match_count": 50,
+              "returned": 8,
+              "note": "Chỉ tìm trong response incidents đã lấy; danh sách trả về tối đa 8 mục.",
+              "source": "https://www.vercel-status.com"
+            }
+          },
+          {
+            "event": "model",
+            "step": 3,
+            "finish": "tool_calls",
+            "tool_calls": 1
+          },
+          {
+            "event": "tool",
+            "step": 3,
+            "name": "get_incident_details",
+            "arguments": {
+              "limit": 2,
+              "provider": "vercel",
+              "incident_id": "w661l7k3kf4p",
+              "offset": 0
+            },
+            "result": {
+              "ok": false,
+              "error": "RATE_LIMITED",
+              "http_status": 429,
+              "retry_after_seconds": 0,
+              "retriable": true,
+              "message": "429 giả lập; retry có giới hạn.",
+              "retry_allowed": true,
+              "rate_limit_count": 1
+            }
+          },
+          {
+            "event": "model",
+            "step": 4,
+            "finish": "tool_calls",
+            "tool_calls": 1
+          },
+          {
+            "event": "tool",
+            "step": 4,
+            "name": "get_incident_details",
+            "arguments": {
+              "limit": 2,
+              "offset": 0,
+              "incident_id": "w661l7k3kf4p",
+              "provider": "vercel"
+            },
+            "result": {
+              "ok": true,
+              "provider": "vercel",
+              "id": "w661l7k3kf4p",
+              "name": "Build delays and degraded Vercel Dashboard performance",
+              "status": "resolved",
+              "created_at": "2026-11-05T18:25:10.527Z",
+              "updated_at": "2026-11-05T18:50:23.139Z",
+              "captured_at": "2026-11-10T14:45:50.457875+00:00",
+              "components": [
+                "Dashboard",
+                "Builds"
+              ],
+              "updates": [
+                {
+                  "status": "resolved",
+                  "created_at": "2026-11-05T18:50:23.107Z",
+                  "body": "This incident has been resolved. The build backlog has been cleared.",
+                  "truncated": false
+                },
+                {
+                  "status": "monitoring",
+                  "created_at": "2026-11-05T18:35:45.034Z",
+                  "body": "We are seeing recovery after taking corrective action to address latency. We are continuing to process delayed builds. Vercel CI has also been affected. We will provide additional updates as they become available.",
+                  "truncated": false
+                }
+              ],
+              "offset": 0,
+              "total_updates": 3,
+              "next_offset": 2,
+              "url": "https://stspg.io/y6fmg7s9m5t2"
+            }
+          },
+          {
+            "event": "model",
+            "step": 5,
+            "finish": "stop",
+            "tool_calls": 0
+          }
+        ],
+        "usage": [
+          {
+            "completion_tokens": 12,
+            "prompt_tokens": 919,
+            "total_tokens": 931
+          },
+          {
+            "completion_tokens": 12,
+            "prompt_tokens": 1018,
+            "total_tokens": 1030
+          },
+          {
+            "completion_tokens": 44,
+            "prompt_tokens": 1696,
+            "total_tokens": 1740
+          },
+          {
+            "completion_tokens": 44,
+            "prompt_tokens": 1827,
+            "total_tokens": 1871
+          },
+          {
+            "completion_tokens": 303,
+            "prompt_tokens": 2237,
+            "total_tokens": 2540
+          }
+        ]
+      },
+      "grade": {
+        "score": 100,
+        "raw_judge_score": 100,
+        "dimensions": {
+          "factuality": 40,
+          "completeness": 25,
+          "evidence": 20,
+          "boundaries": 15
+        },
+        "status": "scored",
+        "reason": "Agent hoàn thành xuất sắc yêu cầu, xử lý đúng rate limit (429) ở lần gọi đầu tiên và thử lại thành công, cung cấp đầy đủ thông tin trạng thái, timestamp, và nguồn.",
+        "improvement": "Không có.",
+        "mechanical": {
+          "violations": [],
+          "score_cap": 100,
+          "tool_calls": 4,
+          "tool_steps": 4
+        },
+        "judge_usage": {
+          "completion_tokens": 104,
+          "prompt_tokens": 2277,
+          "total_tokens": 2381
+        },
+        "judge_trace_truncated": false
+      }
+    }
+  ]
+}

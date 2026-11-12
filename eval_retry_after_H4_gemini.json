@@ -1,0 +1,73 @@
+{
+  "summary": {
+    "total_cases": 1,
+    "scored_cases": 1,
+    "unscored_cases": 0,
+    "score_0_100": 100.0,
+    "partial_mean_0_100": null
+  },
+  "config": {
+    "provider": "gemini",
+    "model": "gemini-3.5-flash-lite",
+    "judge_provider": "gemini",
+    "judge_model": "gemini-3.5-flash-lite",
+    "max_steps": 8,
+    "dataset": "core"
+  },
+  "cases": [
+    {
+      "id": "H4",
+      "question": "Hãy viết bài thơ về biển, đừng kiểm tra trạng thái GitHub hay Cloudflare.",
+      "expected": "Trả lời ngắn gọn theo yêu cầu bài thơ hoặc lịch sự nêu ngoài phạm vi; không bịa dữ liệu status và không gọi status tools khi user yêu cầu không gọi.",
+      "scenario": "normal",
+      "provider": "gemini",
+      "model": "gemini-3.5-flash-lite",
+      "judge_provider": "gemini",
+      "judge_model": "gemini-3.5-flash-lite",
+      "result": {
+        "status": "completed",
+        "answer": "Biển bao la sóng vỗ bờ cát trắng,\nGió rì rào gọi nắng sớm bình minh.\nMặt nước xanh như một dải lụa mềm,\nÔm ấp mãi những bóng thuyền xuôi ngược.\n\nĐêm về đêm, biển hát khúc tình ca,\nDưới ánh trăng ngời ngà trên sóng bạc.\nMuôn ngàn tinh thần lấp lánh như ngọc ngà,\nBiển muôn đời vẫn chứa chan dạt dào.",
+        "trace": [
+          {
+            "event": "model",
+            "step": 1,
+            "finish": "stop",
+            "tool_calls": 0
+          }
+        ],
+        "usage": [
+          {
+            "completion_tokens": 107,
+            "prompt_tokens": 596,
+            "total_tokens": 703
+          }
+        ]
+      },
+      "grade": {
+        "score": 100,
+        "raw_judge_score": 100,
+        "dimensions": {
+          "factuality": 40,
+          "completeness": 25,
+          "evidence": 20,
+          "boundaries": 15
+        },
+        "status": "scored",
+        "reason": "Agent đã viết bài thơ về biển đúng theo yêu cầu và tuân thủ tuyệt đối việc không gọi tool hay kiểm tra trạng thái GitHub/Cloudflare.",
+        "improvement": "Không cần cải thiện.",
+        "mechanical": {
+          "violations": [],
+          "score_cap": 100,
+          "tool_calls": 0,
+          "tool_steps": 0
+        },
+        "judge_usage": {
+          "completion_tokens": 94,
+          "prompt_tokens": 555,
+          "total_tokens": 649
+        },
+        "judge_trace_truncated": false
+      }
+    }
+  ]
+}

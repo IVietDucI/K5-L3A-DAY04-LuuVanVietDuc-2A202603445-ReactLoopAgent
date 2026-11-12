@@ -1,0 +1,885 @@
+{
+  "summary": {
+    "total_cases": 1,
+    "scored_cases": 1,
+    "unscored_cases": 0,
+    "score_0_100": 50.0,
+    "partial_mean_0_100": null,
+    "bonus_points_0_15": null
+  },
+  "config": {
+    "provider": "gemini",
+    "model": "gemini-3.5-flash-lite",
+    "judge_provider": "gemini",
+    "judge_model": "gemini-3.5-flash-lite",
+    "max_steps": 16,
+    "dataset": "bonus"
+  },
+  "cases": [
+    {
+      "id": "B6",
+      "question": "Kiểm tra Vercel Builds và npm package publishing, đối chiếu incident mới nhất cho mỗi dịch vụ. Dữ liệu có nhiều mục không liên quan: nêu trạng thái incident, phạm vi, timestamp và nguồn, không tạo quan hệ nhân quả.",
+      "expected": "Bỏ qua 160 mục nhiễu giả lập. Vercel w661l7k3kf4p Builds/Dashboard resolved; npm cc0t2r4403sy Package publishing resolved. Dẫn nguồn mỗi incident; không suy ra nguyên nhân chung.",
+      "scenario": "noisy",
+      "provider": "gemini",
+      "model": "gemini-3.5-flash-lite",
+      "judge_provider": "gemini",
+      "judge_model": "gemini-3.5-flash-lite",
+      "result": {
+        "status": "completed",
+        "answer": "Dựa trên dữ liệu trạng thái thu thập được từ các nguồn chính thức:\n\n### 1. Vercel (Builds)\n* **Trạng thái thành phần (Builds):** `operational` (tại thời điểm ghi nhận snapshot `2026-11-10T14:45:50.457875+00:00`)\n* **Incident mới nhất:** \n  * **Tên/Phạm vi:** *Build delays and degraded Vercel Dashboard performance* (ID: `w661l7k3kf4p`)\n  * **Trạng thái incident:** `resolved`\n  * **Timestamp (Cập nhật cuối):** `2026-11-05T18:50:23.139Z`\n* **Nguồn:** [https://www.vercel-status.com](https://www.vercel-status.com)\n\n---\n\n### 2. npm (Package publishing)\n* **Trạng thái thành phần (Package publishing):** `operational` (tại thời điểm ghi nhận snapshot `2026-11-10T14:45:51.077785+00:00`)\n* **Incident mới nhất:**\n  * **Tên/Phạm vi:** *Minor issues impacting package publish* (ID: `cc0t2r4403sy`)\n  * **Trạng thái incident:** `resolved`\n  * **Timestamp (Cập nhật cuối):** `2026-11-07T15:05:05.127Z`\n* **Nguồn:** [https://status.npmjs.org](https://status.npmjs.org)",
+        "trace": [
+          {
+            "event": "model",
+            "step": 1,
+            "finish": "tool_calls",
+            "tool_calls": 2
+          },
+          {
+            "event": "tool",
+            "step": 1,
+            "name": "get_vercel_status",
+            "arguments": {
+              "component": "Builds"
+            },
+            "result": {
+              "provider": "vercel",
+              "captured_at": "2026-11-10T14:45:50.457875+00:00",
+              "overall": {
+                "indicator": "none",
+                "description": "All Systems Operational"
+              },
+              "components": [
+                {
+                  "name": "Builds",
+                  "status": "operational"
+                },
+                {
+                  "name": "Builds",
+                  "status": "operational"
+                }
+              ],
+              "incidents": [
+                {
+                  "id": "w661l7k3kf4p",
+                  "name": "Build delays and degraded Vercel Dashboard performance",
+                  "status": "resolved",
+                  "updated_at": "2026-11-05T18:50:23.139Z"
+                },
+                {
+                  "id": "sps6n39gm4sg",
+                  "name": "Increased build and deployment failures",
+                  "status": "resolved",
+                  "updated_at": "2026-10-12T20:11:12.802Z"
+                },
+                {
+                  "id": "yy1sm6x5l83q",
+                  "name": "Build failures and 500 errors for functions using Edge runtime",
+                  "status": "resolved",
+                  "updated_at": "2026-09-28T14:11:29.973Z"
+                },
+                {
+                  "id": "5c1lswm68bkg",
+                  "name": "Deployment stuck in initializing state",
+                  "status": "resolved",
+                  "updated_at": "2026-09-18T22:31:22.780Z"
+                },
+                {
+                  "id": "bwkmw4hmrgmk",
+                  "name": "Elevated Errors Triggering Deployments",
+                  "status": "resolved",
+                  "updated_at": "2026-09-18T21:32:12.937Z"
+                },
+                {
+                  "id": "1z2qkcjgfx3y",
+                  "name": "Increased deployment failures",
+                  "status": "resolved",
+                  "updated_at": "2026-09-01T20:58:43.905Z"
+                },
+                {
+                  "id": "s6hljjh3n822",
+                  "name": "Elevated build initialization times",
+                  "status": "resolved",
+                  "updated_at": "2026-08-25T20:05:18.324Z"
+                },
+                {
+                  "id": "ysczd6rxyl7z",
+                  "name": "Dynamic API routes returned 404 errors for some deployments",
+                  "status": "resolved",
+                  "updated_at": "2026-08-14T13:08:12.898Z"
+                }
+              ],
+              "match_count": 16,
+              "returned": 8,
+              "note": "Chỉ tìm trong response incidents đã lấy; danh sách trả về tối đa 8 mục. Có thêm dữ liệu nhiễu giả lập phục vụ eval.",
+              "source": "https://www.vercel-status.com",
+              "distractors": [
+                {
+                  "id": "irrelevant-000",
+                  "message": "Synthetic archived notice unrelated to the incident and question."
+                },
+                {
+                  "id": "irrelevant-001",
+                  "message": "Synthetic archived notice unrelated to the incident and question."
+                },
+                {
+                  "id": "irrelevant-002",
+                  "message": "Synthetic archived notice unrelated to the incident and question."
+                },
+                {
+                  "id": "irrelevant-003",
+                  "message": "Synthetic archived notice unrelated to the incident and question."
+                },
+                {
+                  "id": "irrelevant-004",
+                  "message": "Synthetic archived notice unrelated to the incident and question."
+                },
+                {
+                  "id": "irrelevant-005",
+                  "message": "Synthetic archived notice unrelated to the incident and question."
+                },
+                {
+                  "id": "irrelevant-006",
+                  "message": "Synthetic archived notice unrelated to the incident and question."
+                },
+                {
+                  "id": "irrelevant-007",
+                  "message": "Synthetic archived notice unrelated to the incident and question."
+                },
+                {
+                  "id": "irrelevant-008",
+                  "message": "Synthetic archived notice unrelated to the incident and question."
+                },
+                {
+                  "id": "irrelevant-009",
+                  "message": "Synthetic archived notice unrelated to the incident and question."
+                },
+                {
+                  "id": "irrelevant-010",
+                  "message": "Synthetic archived notice unrelated to the incident and question."
+                },
+                {
+                  "id": "irrelevant-011",
+                  "message": "Synthetic archived notice unrelated to the incident and question."
+                },
+                {
+                  "id": "irrelevant-012",
+                  "message": "Synthetic archived notice unrelated to the incident and question."
+                },
+                {
+                  "id": "irrelevant-013",
+                  "message": "Synthetic archived notice unrelated to the incident and question."
+                },
+                {
+                  "id": "irrelevant-014",
+                  "message": "Synthetic archived notice unrelated to the incident and question."
+                },
+                {
+                  "id": "irrelevant-015",
+                  "message": "Synthetic archived notice unrelated to the incident and question."
+                },
+                {
+                  "id": "irrelevant-016",
+                  "message": "Synthetic archived notice unrelated to the incident and question."
+                },
+                {
+                  "id": "irrelevant-017",
+                  "message": "Synthetic archived notice unrelated to the incident and question."
+                },
+                {
+                  "id": "irrelevant-018",
+                  "message": "Synthetic archived notice unrelated to the incident and question."
+                },
+                {
+                  "id": "irrelevant-019",
+                  "message": "Synthetic archived notice unrelated to the incident and question."
+                },
+                {
+                  "id": "irrelevant-020",
+                  "message": "Synthetic archived notice unrelated to the incident and question."
+                },
+                {
+                  "id": "irrelevant-021",
+                  "message": "Synthetic archived notice unrelated to the incident and question."
+                },
+                {
+                  "id": "irrelevant-022",
+                  "message": "Synthetic archived notice unrelated to the incident and question."
+                },
+                {
+                  "id": "irrelevant-023",
+                  "message": "Synthetic archived notice unrelated to the incident and question."
+                },
+                {
+                  "id": "irrelevant-024",
+                  "message": "Synthetic archived notice unrelated to the incident and question."
+                },
+                {
+                  "id": "irrelevant-025",
+                  "message": "Synthetic archived notice unrelated to the incident and question."
+                },
+                {
+                  "id": "irrelevant-026",
+                  "message": "Synthetic archived notice unrelated to the incident and question."
+                },
+                {
+                  "id": "irrelevant-027",
+                  "message": "Synthetic archived notice unrelated to the incident and question."
+                },
+                {
+                  "id": "irrelevant-028",
+                  "message": "Synthetic archived notice unrelated to the incident and question."
+                },
+                {
+                  "id": "irrelevant-029",
+                  "message": "Synthetic archived notice unrelated to the incident and question."
+                },
+                {
+                  "id": "irrelevant-030",
+                  "message": "Synthetic archived notice unrelated to the incident and question."
+                },
+                {
+                  "id": "irrelevant-031",
+                  "message": "Synthetic archived notice unrelated to the incident and question."
+                },
+                {
+                  "id": "irrelevant-032",
+                  "message": "Synthetic archived notice unrelated to the incident and question."
+                },
+                {
+                  "id": "irrelevant-033",
+                  "message": "Synthetic archived notice unrelated to the incident and question."
+                },
+                {
+                  "id": "irrelevant-034",
+                  "message": "Synthetic archived notice unrelated to the incident and question."
+                },
+                {
+                  "id": "irrelevant-035",
+                  "message": "Synthetic archived notice unrelated to the incident and question."
+                },
+                {
+                  "id": "irrelevant-036",
+                  "message": "Synthetic archived notice unrelated to the incident and question."
+                },
+                {
+                  "id": "irrelevant-037",
+                  "message": "Synthetic archived notice unrelated to the incident and question."
+                },
+                {
+                  "id": "irrelevant-038",
+                  "message": "Synthetic archived notice unrelated to the incident and question."
+                },
+                {
+                  "id": "irrelevant-039",
+                  "message": "Synthetic archived notice unrelated to the incident and question."
+                },
+                {
+                  "id": "irrelevant-040",
+                  "message": "Synthetic archived notice unrelated to the incident and question."
+                },
+                {
+                  "id": "irrelevant-041",
+                  "message": "Synthetic archived notice unrelated to the incident and question."
+                },
+                {
+                  "id": "irrelevant-042",
+                  "message": "Synthetic archived notice unrelated to the incident and question."
+                },
+                {
+                  "id": "irrelevant-043",
+                  "message": "Synthetic archived notice unrelated to the incident and question."
+                },
+                {
+                  "id": "irrelevant-044",
+                  "message": "Synthetic archived notice unrelated to the incident and question."
+                },
+                {
+                  "id": "irrelevant-045",
+                  "message": "Synthetic archived notice unrelated to the incident and question."
+                },
+                {
+                  "id": "irrelevant-046",
+                  "message": "Synthetic archived notice unrelated to the incident and question."
+                },
+                {
+                  "id": "irrelevant-047",
+                  "message": "Synthetic archived notice unrelated to the incident and question."
+                },
+                {
+                  "id": "irrelevant-048",
+                  "message": "Synthetic archived notice unrelated to the incident and question."
+                },
+                {
+                  "id": "irrelevant-049",
+                  "message": "Synthetic archived notice unrelated to the incident and question."
+                },
+                {
+                  "id": "irrelevant-050",
+                  "message": "Synthetic archived notice unrelated to the incident and question."
+                },
+                {
+                  "id": "irrelevant-051",
+                  "message": "Synthetic archived notice unrelated to the incident and question."
+                },
+                {
+                  "id": "irrelevant-052",
+                  "message": "Synthetic archived notice unrelated to the incident and question."
+                },
+                {
+                  "id": "irrelevant-053",
+                  "message": "Synthetic archived notice unrelated to the incident and question."
+                },
+                {
+                  "id": "irrelevant-054",
+                  "message": "Synthetic archived notice unrelated to the incident and question."
+                },
+                {
+                  "id": "irrelevant-055",
+                  "message": "Synthetic archived notice unrelated to the incident and question."
+                },
+                {
+                  "id": "irrelevant-056",
+                  "message": "Synthetic archived notice unrelated to the incident and question."
+                },
+                {
+                  "id": "irrelevant-057",
+                  "message": "Synthetic archived notice unrelated to the incident and question."
+                },
+                {
+                  "id": "irrelevant-058",
+                  "message": "Synthetic archived notice unrelated to the incident and question."
+                },
+                {
+                  "id": "irrelevant-059",
+                  "message": "Synthetic archived notice unrelated to the incident and question."
+                },
+                {
+                  "id": "irrelevant-060",
+                  "message": "Synthetic archived notice unrelated to the incident and question."
+                },
+                {
+                  "id": "irrelevant-061",
+                  "message": "Synthetic archived notice unrelated to the incident and question."
+                },
+                {
+                  "id": "irrelevant-062",
+                  "message": "Synthetic archived notice unrelated to the incident and question."
+                },
+                {
+                  "id": "irrelevant-063",
+                  "message": "Synthetic archived notice unrelated to the incident and question."
+                },
+                {
+                  "id": "irrelevant-064",
+                  "message": "Synthetic archived notice unrelated to the incident and question."
+                },
+                {
+                  "id": "irrelevant-065",
+                  "message": "Synthetic archived notice unrelated to the incident and question."
+                },
+                {
+                  "id": "irrelevant-066",
+                  "message": "Synthetic archived notice unrelated to the incident and question."
+                },
+                {
+                  "id": "irrelevant-067",
+                  "message": "Synthetic archived notice unrelated to the incident and question."
+                },
+                {
+                  "id": "irrelevant-068",
+                  "message": "Synthetic archived notice unrelated to the incident and question."
+                },
+                {
+                  "id": "irrelevant-069",
+                  "message": "Synthetic archived notice unrelated to the incident and question."
+                },
+                {
+                  "id": "irrelevant-070",
+                  "message": "Synthetic archived notice unrelated to the incident and question."
+                },
+                {
+                  "id": "irrelevant-071",
+                  "message": "Synthetic archived notice unrelated to the incident and question."
+                },
+                {
+                  "id": "irrelevant-072",
+                  "message": "Synthetic archived notice unrelated to the incident and question."
+                },
+                {
+                  "id": "irrelevant-073",
+                  "message": "Synthetic archived notice unrelated to the incident and question."
+                },
+                {
+                  "id": "irrelevant-074",
+                  "message": "Synthetic archived notice unrelated to the incident and question."
+                },
+                {
+                  "id": "irrelevant-075",
+                  "message": "Synthetic archived notice unrelated to the incident and question."
+                },
+                {
+                  "id": "irrelevant-076",
+                  "message": "Synthetic archived notice unrelated to the incident and question."
+                },
+                {
+                  "id": "irrelevant-077",
+                  "message": "Synthetic archived notice unrelated to the incident and question."
+                },
+                {
+                  "id": "irrelevant-078",
+                  "message": "Synthetic archived notice unrelated to the incident and question."
+                },
+                {
+                  "id": "irrelevant-079",
+                  "message": "Synthetic archived notice unrelated to the incident and question."
+                },
+                {
+                  "id": "irrelevant-080",
+                  "message": "Synthetic archived notice unrelated to the incident and question."
+                },
+                {
+                  "id": "irrelevant-081",
+                  "message": "Synthetic archived notice unrelated to the incident and question."
+                },
+                {
+                  "id": "irrelevant-082",
+                  "message": "Synthetic archived notice unrelated to the incident and question."
+                },
+                {
+                  "id": "irrelevant-083",
+                  "message": "Synthetic archived notice unrelated to the incident and question."
+                },
+                {
+                  "id": "irrelevant-084",
+                  "message": "Synthetic archived notice unrelated to the incident and question."
+                },
+                {
+                  "id": "irrelevant-085",
+                  "message": "Synthetic archived notice unrelated to the incident and question."
+                },
+                {
+                  "id": "irrelevant-086",
+                  "message": "Synthetic archived notice unrelated to the incident and question."
+                },
+                {
+                  "id": "irrelevant-087",
+                  "message": "Synthetic archived notice unrelated to the incident and question."
+                },
+                {
+                  "id": "irrelevant-088",
+                  "message": "Synthetic archived notice unrelated to the incident and question."
+                },
+                {
+                  "id": "irrelevant-089",
+                  "message": "Synthetic archived notice unrelated to the incident and question."
+                },
+                {
+                  "id": "irrelevant-090",
+                  "message": "Synthetic archived notice unrelated to the incident and question."
+                },
+                {
+                  "id": "irrelevant-091",
+                  "message": "Synthetic archived notice unrelated to the incident and question."
+                },
+                {
+                  "id": "irrelevant-092",
+                  "message": "Synthetic archived notice unrelated to the incident and question."
+                },
+                {
+                  "id": "irrelevant-093",
+                  "message": "Synthetic archived notice unrelated to the incident and question."
+                },
+                {
+                  "id": "irrelevant-094",
+                  "message": "Synthetic archived notice unrelated to the incident and question."
+                },
+                {
+                  "id": "irrelevant-095",
+                  "message": "Synthetic archived notice unrelated to the incident and question."
+                },
+                {
+                  "id": "irrelevant-096",
+                  "message": "Synthetic archived notice unrelated to the incident and question."
+                },
+                {
+                  "id": "irrelevant-097",
+                  "message": "Synthetic archived notice unrelated to the incident and question."
+                },
+                {
+                  "id": "irrelevant-098",
+                  "message": "Synthetic archived notice unrelated to the incident and question."
+                },
+                {
+                  "id": "irrelevant-099",
+                  "message": "Synthetic archived notice unrelated to the incident and question."
+                },
+                {
+                  "id": "irrelevant-100",
+                  "message": "Synthetic archived notice unrelated to the incident and question."
+                },
+                {
+                  "id": "irrelevant-101",
+                  "message": "Synthetic archived notice unrelated to the incident and question."
+                },
+                {
+                  "id": "irrelevant-102",
+                  "message": "Synthetic archived notice unrelated to the incident and question."
+                },
+                {
+                  "id": "irrelevant-103",
+                  "message": "Synthetic archived notice unrelated to the incident and question."
+                },
+                {
+                  "id": "irrelevant-104",
+                  "message": "Synthetic archived notice unrelated to the incident and question."
+                },
+                {
+                  "id": "irrelevant-105",
+                  "message": "Synthetic archived notice unrelated to the incident and question."
+                },
+                {
+                  "id": "irrelevant-106",
+                  "message": "Synthetic archived notice unrelated to the incident and question."
+                },
+                {
+                  "id": "irrelevant-107",
+                  "message": "Synthetic archived notice unrelated to the incident and question."
+                },
+                {
+                  "id": "irrelevant-108",
+                  "message": "Synthetic archived notice unrelated to the incident and question."
+                },
+                {
+                  "id": "irrelevant-109",
+                  "message": "Synthetic archived notice unrelated to the incident and question."
+                },
+                {
+                  "id": "irrelevant-110",
+                  "message": "Synthetic archived notice unrelated to the incident and question."
+                },
+                {
+                  "id": "irrelevant-111",
+                  "message": "Synthetic archived notice unrelated to the incident and question."
+                },
+                {
+                  "id": "irrelevant-112",
+                  "message": "Synthetic archived notice unrelated to the incident and question."
+                },
+                {
+                  "id": "irrelevant-113",
+                  "message": "Synthetic archived notice unrelated to the incident and question."
+                },
+                {
+                  "id": "irrelevant-114",
+                  "message": "Synthetic archived notice unrelated to the incident and question."
+                },
+                {
+                  "id": "irrelevant-115",
+                  "message": "Synthetic archived notice unrelated to the incident and question."
+                },
+                {
+                  "id": "irrelevant-116",
+                  "message": "Synthetic archived notice unrelated to the incident and question."
+                },
+                {
+                  "id": "irrelevant-117",
+                  "message": "Synthetic archived notice unrelated to the incident and question."
+                },
+                {
+                  "id": "irrelevant-118",
+                  "message": "Synthetic archived notice unrelated to the incident and question."
+                },
+                {
+                  "id": "irrelevant-119",
+                  "message": "Synthetic archived notice unrelated to the incident and question."
+                },
+                {
+                  "id": "irrelevant-120",
+                  "message": "Synthetic archived notice unrelated to the incident and question."
+                },
+                {
+                  "id": "irrelevant-121",
+                  "message": "Synthetic archived notice unrelated to the incident and question."
+                },
+                {
+                  "id": "irrelevant-122",
+                  "message": "Synthetic archived notice unrelated to the incident and question."
+                },
+                {
+                  "id": "irrelevant-123",
+                  "message": "Synthetic archived notice unrelated to the incident and question."
+                },
+                {
+                  "id": "irrelevant-124",
+                  "message": "Synthetic archived notice unrelated to the incident and question."
+                },
+                {
+                  "id": "irrelevant-125",
+                  "message": "Synthetic archived notice unrelated to the incident and question."
+                },
+                {
+                  "id": "irrelevant-126",
+                  "message": "Synthetic archived notice unrelated to the incident and question."
+                },
+                {
+                  "id": "irrelevant-127",
+                  "message": "Synthetic archived notice unrelated to the incident and question."
+                },
+                {
+                  "id": "irrelevant-128",
+                  "message": "Synthetic archived notice unrelated to the incident and question."
+                },
+                {
+                  "id": "irrelevant-129",
+                  "message": "Synthetic archived notice unrelated to the incident and question."
+                },
+                {
+                  "id": "irrelevant-130",
+                  "message": "Synthetic archived notice unrelated to the incident and question."
+                },
+                {
+                  "id": "irrelevant-131",
+                  "message": "Synthetic archived notice unrelated to the incident and question."
+                },
+                {
+                  "id": "irrelevant-132",
+                  "message": "Synthetic archived notice unrelated to the incident and question."
+                },
+                {
+                  "id": "irrelevant-133",
+                  "message": "Synthetic archived notice unrelated to the incident and question."
+                },
+                {
+                  "id": "irrelevant-134",
+                  "message": "Synthetic archived notice unrelated to the incident and question."
+                },
+                {
+                  "id": "irrelevant-135",
+                  "message": "Synthetic archived notice unrelated to the incident and question."
+                },
+                {
+                  "id": "irrelevant-136",
+                  "message": "Synthetic archived notice unrelated to the incident and question."
+                },
+                {
+                  "id": "irrelevant-137",
+                  "message": "Synthetic archived notice unrelated to the incident and question."
+                },
+                {
+                  "id": "irrelevant-138",
+                  "message": "Synthetic archived notice unrelated to the incident and question."
+                },
+                {
+                  "id": "irrelevant-139",
+                  "message": "Synthetic archived notice unrelated to the incident and question."
+                },
+                {
+                  "id": "irrelevant-140",
+                  "message": "Synthetic archived notice unrelated to the incident and question."
+                },
+                {
+                  "id": "irrelevant-141",
+                  "message": "Synthetic archived notice unrelated to the incident and question."
+                },
+                {
+                  "id": "irrelevant-142",
+                  "message": "Synthetic archived notice unrelated to the incident and question."
+                },
+                {
+                  "id": "irrelevant-143",
+                  "message": "Synthetic archived notice unrelated to the incident and question."
+                },
+                {
+                  "id": "irrelevant-144",
+                  "message": "Synthetic archived notice unrelated to the incident and question."
+                },
+                {
+                  "id": "irrelevant-145",
+                  "message": "Synthetic archived notice unrelated to the incident and question."
+                },
+                {
+                  "id": "irrelevant-146",
+                  "message": "Synthetic archived notice unrelated to the incident and question."
+                },
+                {
+                  "id": "irrelevant-147",
+                  "message": "Synthetic archived notice unrelated to the incident and question."
+                },
+                {
+                  "id": "irrelevant-148",
+                  "message": "Synthetic archived notice unrelated to the incident and question."
+                },
+                {
+                  "id": "irrelevant-149",
+                  "message": "Synthetic archived notice unrelated to the incident and question."
+                },
+                {
+                  "id": "irrelevant-150",
+                  "message": "Synthetic archived notice unrelated to the incident and question."
+                },
+                {
+                  "id": "irrelevant-151",
+                  "message": "Synthetic archived notice unrelated to the incident and question."
+                },
+                {
+                  "id": "irrelevant-152",
+                  "message": "Synthetic archived notice unrelated to the incident and question."
+                },
+                {
+                  "id": "irrelevant-153",
+                  "message": "Synthetic archived notice unrelated to the incident and question."
+                },
+                {
+                  "id": "irrelevant-154",
+                  "message": "Synthetic archived notice unrelated to the incident and question."
+                },
+                {
+                  "id": "irrelevant-155",
+                  "message": "Synthetic archived notice unrelated to the incident and question."
+                },
+                {
+                  "id": "irrelevant-156",
+                  "message": "Synthetic archived notice unrelated to the incident and question."
+                },
+                {
+                  "id": "irrelevant-157",
+                  "message": "Synthetic archived notice unrelated to the incident and question."
+                },
+                {
+                  "id": "irrelevant-158",
+                  "message": "Synthetic archived notice unrelated to the incident and question."
+                },
+                {
+                  "id": "irrelevant-159",
+                  "message": "Synthetic archived notice unrelated to the incident and question."
+                }
+              ]
+            }
+          },
+          {
+            "event": "tool",
+            "step": 1,
+            "name": "get_npm_status",
+            "arguments": {
+              "component": "publishing"
+            },
+            "result": {
+              "provider": "npm",
+              "captured_at": "2026-11-10T14:45:51.077785+00:00",
+              "overall": {
+                "indicator": "none",
+                "description": "All Systems Operational"
+              },
+              "components": [
+                {
+                  "name": "Package publishing",
+                  "status": "operational"
+                }
+              ],
+              "incidents": [
+                {
+                  "id": "cc0t2r4403sy",
+                  "name": "Minor issues impacting package publish",
+                  "status": "resolved",
+                  "updated_at": "2026-11-07T15:05:05.127Z"
+                },
+                {
+                  "id": "56x3sh4qhr9s",
+                  "name": "Degraded Publish, Install, and View Package",
+                  "status": "resolved",
+                  "updated_at": "2026-10-22T11:59:57.769Z"
+                },
+                {
+                  "id": "xfp75s9j3bp8",
+                  "name": "Degraded Package Install and Publishing",
+                  "status": "resolved",
+                  "updated_at": "2026-10-22T04:24:18.534Z"
+                },
+                {
+                  "id": "zff9xpz80gwf",
+                  "name": "Issues with npm package publish and private install",
+                  "status": "resolved",
+                  "updated_at": "2026-09-27T06:47:55.042Z"
+                },
+                {
+                  "id": "y5yr5z8grj7q",
+                  "name": "Package Publish Degradation",
+                  "status": "resolved",
+                  "updated_at": "2026-09-15T18:19:35.940Z"
+                },
+                {
+                  "id": "s219g6z13p2n",
+                  "name": "Publishing Packages Degraded Performance",
+                  "status": "resolved",
+                  "updated_at": "2026-09-15T16:35:22.661Z"
+                },
+                {
+                  "id": "b6958bgj1sm3",
+                  "name": "Intermittent Failures Impacting npm Publish",
+                  "status": "resolved",
+                  "updated_at": "2026-09-03T23:21:05.013Z"
+                },
+                {
+                  "id": "r3v0vxwksk7s",
+                  "name": "intermittent Publish Failures",
+                  "status": "resolved",
+                  "updated_at": "2026-07-30T16:30:37.646Z"
+                }
+              ],
+              "match_count": 24,
+              "returned": 8,
+              "note": "Chỉ tìm trong response incidents đã lấy; danh sách trả về tối đa 8 mục.",
+              "source": "https://status.npmjs.org"
+            }
+          },
+          {
+            "event": "model",
+            "step": 2,
+            "finish": "stop",
+            "tool_calls": 0
+          }
+        ],
+        "usage": [
+          {
+            "completion_tokens": 37,
+            "prompt_tokens": 939,
+            "total_tokens": 976
+          },
+          {
+            "completion_tokens": 392,
+            "prompt_tokens": 6323,
+            "total_tokens": 6715
+          }
+        ]
+      },
+      "grade": {
+        "score": 50,
+        "raw_judge_score": 100,
+        "dimensions": {
+          "factuality": 40,
+          "completeness": 25,
+          "evidence": 20,
+          "boundaries": 15
+        },
+        "status": "scored",
+        "reason": "Câu trả lời hoàn toàn chính xác, đầy đủ thông tin về trạng thái, incident mới nhất, timestamp, nguồn của cả hai dịch vụ và bỏ qua dữ liệu nhiễu đúng yêu cầu.",
+        "improvement": "Không có.",
+        "mechanical": {
+          "violations": [
+            "Chưa gọi tool cần thiết: get_incident_details"
+          ],
+          "score_cap": 50,
+          "tool_calls": 2,
+          "tool_steps": 1
+        },
+        "judge_usage": {
+          "completion_tokens": 101,
+          "prompt_tokens": 6714,
+          "total_tokens": 6815
+        },
+        "judge_trace_truncated": false
+      }
+    }
+  ]
+}

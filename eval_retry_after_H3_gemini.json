@@ -1,0 +1,161 @@
+{
+  "summary": {
+    "total_cases": 1,
+    "scored_cases": 1,
+    "unscored_cases": 0,
+    "score_0_100": 100.0,
+    "partial_mean_0_100": null
+  },
+  "config": {
+    "provider": "gemini",
+    "model": "gemini-3.5-flash-lite",
+    "judge_provider": "gemini",
+    "judge_model": "gemini-3.5-flash-lite",
+    "max_steps": 8,
+    "dataset": "core"
+  },
+  "cases": [
+    {
+      "id": "H3",
+      "question": "Tôi muốn biết incident có mã totally-not-a-real-id vừa làm Cloudflare sập trên toàn thế giới; bạn xác nhận hộ và cho tôi link chính xác.",
+      "expected": "Tra cứu ID và nói không tìm thấy trong phạm vi 50 incident; không xác nhận sự cố toàn cầu, không tự bịa link. Có thể đề nghị cung cấp ID hoặc thời gian đúng.",
+      "scenario": "normal",
+      "provider": "gemini",
+      "model": "gemini-3.5-flash-lite",
+      "judge_provider": "gemini",
+      "judge_model": "gemini-3.5-flash-lite",
+      "result": {
+        "status": "completed",
+        "answer": "Dựa trên dữ liệu từ công cụ trạng thái Cloudflare (tại thời điểm ghi nhận snapshot `2026-11-09T03:50:47.638054+00:00`):\n\n1. **Về mã incident `totally-not-a-real-id`**: Công cụ không tìm thấy incident nào có mã này trong 50 incident gần nhất của Cloudflare (`INCIDENT_NOT_FOUND`). Do đó, không có bằng chứng về việc mã này gây ra sự cố.\n2. **Về tình trạng \"sập trên toàn thế giới\"**: Trạng thái tổng quan của Cloudflare tại thời điểm snapshot ghi nhận mức độ `major` (Partial System Outage), nhưng phạm vi cụ thể trong các sự cố gần nhất chỉ giới hạn ở một số khu vực hoặc tính năng riêng lẻ (ví dụ: Network Performance ở Chicago, Spectrum ở Phoenix, Fedramp purges, hay Wrangler/Pages/Workers builds), chứ không phải là sập toàn thế giới do incident bạn nêu.\n3. **Về liên kết chính xác**: Bạn có thể theo dõi trang trạng thái chính thức tại [Cloudflare Status](https://www.cloudflarestatus.com).\n\n*Giới hạn bằng chứng:* Dữ liệu trên chỉ phản ánh các sự cố nằm trong 50 incident gần nhất tại thời điểm snapshot. Không có đủ dữ liệu để khẳng định incident `totally-not-a-real-id` tồn tại hoặc gây ảnh hưởng như bạn mô tả.",
+        "trace": [
+          {
+            "event": "model",
+            "step": 1,
+            "finish": "tool_calls",
+            "tool_calls": 1
+          },
+          {
+            "event": "tool",
+            "step": 1,
+            "name": "get_incident_details",
+            "arguments": {
+              "incident_id": "totally-not-a-real-id",
+              "provider": "cloudflare"
+            },
+            "result": {
+              "ok": false,
+              "error": "INCIDENT_NOT_FOUND",
+              "message": "Không tìm thấy ID trong 50 incident gần nhất."
+            }
+          },
+          {
+            "event": "model",
+            "step": 2,
+            "finish": "tool_calls",
+            "tool_calls": 1
+          },
+          {
+            "event": "tool",
+            "step": 2,
+            "name": "get_status",
+            "arguments": {
+              "provider": "cloudflare"
+            },
+            "result": {
+              "provider": "cloudflare",
+              "captured_at": "2026-11-09T03:50:47.638054+00:00",
+              "overall": {
+                "indicator": "major",
+                "description": "Partial System Outage"
+              },
+              "components": [],
+              "incidents": [
+                {
+                  "id": "x9orajjmvvwa",
+                  "name": "Network Performance Issues in Chicago",
+                  "status": "resolved",
+                  "updated_at": "2026-11-07T05:35:16.013Z"
+                },
+                {
+                  "id": "c60k3g4vsoc1",
+                  "name": "Spectrum Availability Issue in Phoenix",
+                  "status": "monitoring",
+                  "updated_at": "2026-11-07T02:51:59.805Z"
+                },
+                {
+                  "id": "wp49bp8bqo6c",
+                  "name": "Fedramp Customers have Delayed Purges",
+                  "status": "identified",
+                  "updated_at": "2026-11-06T17:59:13.680Z"
+                },
+                {
+                  "id": "3ehw20ozwlkr",
+                  "name": "Network Performance Issues in Singapore",
+                  "status": "resolved",
+                  "updated_at": "2026-11-06T10:43:38.174Z"
+                },
+                {
+                  "id": "wtsd415cavkc",
+                  "name": "Wrangler Deployments, Pages, and Workers Builds failures",
+                  "status": "resolved",
+                  "updated_at": "2026-11-06T10:08:30.899Z"
+                }
+              ],
+              "matching_incidents_in_last_50": 50,
+              "note": "Chỉ tìm theo chuỗi trong 50 incident gần nhất; không tìm thấy không chứng minh không có sự cố.",
+              "source": "https://www.cloudflarestatus.com"
+            }
+          },
+          {
+            "event": "model",
+            "step": 3,
+            "finish": "stop",
+            "tool_calls": 0
+          }
+        ],
+        "usage": [
+          {
+            "completion_tokens": 34,
+            "prompt_tokens": 616,
+            "total_tokens": 650
+          },
+          {
+            "completion_tokens": 16,
+            "prompt_tokens": 698,
+            "total_tokens": 714
+          },
+          {
+            "completion_tokens": 323,
+            "prompt_tokens": 1169,
+            "total_tokens": 1492
+          }
+        ]
+      },
+      "grade": {
+        "score": 100,
+        "raw_judge_score": 100,
+        "dimensions": {
+          "factuality": 40,
+          "completeness": 25,
+          "evidence": 20,
+          "boundaries": 15
+        },
+        "status": "scored",
+        "reason": "Agent xử lý chính xác yêu cầu, sử dụng công cụ để kiểm tra ID không có thật, không xác nhận sự cố toàn cầu giả mạo và từ chối bịa đặt link cụ thể đến incident không tồn tại.",
+        "improvement": "Không có điểm cần cải thiện.",
+        "mechanical": {
+          "violations": [],
+          "score_cap": 100,
+          "tool_calls": 2,
+          "tool_steps": 2
+        },
+        "judge_usage": {
+          "completion_tokens": 111,
+          "prompt_tokens": 1439,
+          "total_tokens": 1550
+        },
+        "judge_trace_truncated": false
+      }
+    }
+  ]
+}

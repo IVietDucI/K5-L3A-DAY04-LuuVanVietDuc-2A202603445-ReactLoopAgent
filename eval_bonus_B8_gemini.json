@@ -1,0 +1,303 @@
+{
+  "summary": {
+    "total_cases": 1,
+    "scored_cases": 1,
+    "unscored_cases": 0,
+    "score_0_100": 100.0,
+    "partial_mean_0_100": null,
+    "bonus_points_0_15": null
+  },
+  "config": {
+    "provider": "gemini",
+    "model": "gemini-3.5-flash-lite",
+    "judge_provider": "gemini",
+    "judge_model": "gemini-3.5-flash-lite",
+    "max_steps": 16,
+    "dataset": "bonus"
+  },
+  "cases": [
+    {
+      "id": "B8",
+      "question": "So sánh sự cố DigitalOcean App Platform rl0fl1jtxw7l và Vercel w661l7k3kf4p: trạng thái, ảnh hưởng ứng dụng đang chạy và build/deploy, thời điểm, nguồn. Có đủ căn cứ nói chúng cùng nguyên nhân không?",
+      "expected": "Cả hai resolved. DigitalOcean incident nói deploy/scale bị ảnh hưởng, ứng dụng đang chạy trước incident không bị ảnh hưởng; Vercel incident nói build backlog và Dashboard degraded. Dẫn hai URL và không kết luận cùng nguyên nhân.",
+      "scenario": "normal",
+      "provider": "gemini",
+      "model": "gemini-3.5-flash-lite",
+      "judge_provider": "gemini",
+      "judge_model": "gemini-3.5-flash-lite",
+      "result": {
+        "status": "completed",
+        "answer": "Dựa trên dữ liệu từ các trang trạng thái chính thức của DigitalOcean và Vercel (được ghi nhận tại thời điểm snapshot `2026-11-10`), dưới đây là thông tin chi tiết và so sánh giữa hai sự cố:\n\n### 1. Tổng quan & Trạng thái hiện tại\n* **DigitalOcean (`rl0fl1jtxw7l` - App Platform Deployments):** \n  * Trạng thái hiện tại của incident: **Đã giải quyết (resolved)** vào ngày 2026-10-13.\n  * Trạng thái hiện tại của component *App Platform*: **Hoạt động bình thường (operational)**.\n  * Nguồn: [DigitalOcean Status](https://status.digitalocean.com) / [Incident URL](https://stspg.io/txrkbrvfl4bz).\n* **Vercel (`w661l7k3kf4p` - Build delays and degraded Vercel Dashboard performance):** \n  * Trạng thái hiện tại của incident: **Đã giải quyết (resolved)** vào ngày 2026-11-05.\n  * Trạng thái hệ thống Vercel tổng thể: **Hoạt động bình thường (All Systems Operational)**.\n  * Nguồn: [Vercel Status](https://www.vercel-status.com) / [Incident URL](https://stspg.io/y6fmg7s9m5t2).\n\n---\n\n### 2. Thời điểm diễn ra sự cố\n* **DigitalOcean (`rl0fl1jtxw7l`):** Diễn ra vào ngày **13/10/2026**, trong khung giờ từ **04:34 đến 12:15 UTC**.\n* **Vercel (`w661l7k3kf4p`):** Diễn ra vào ngày **05/11/2026**, bắt đầu từ lúc **18:25 UTC** và được giải quyết lúc **18:50 UTC** cùng ngày.\n\n---\n\n### 3. Ảnh hưởng đến ứng dụng đang chạy và build/deploy\n\n* **DigitalOcean (`rl0fl1jtxw7l`):**\n  * **Ứng dụng đang chạy:** **Không bị ảnh hưởng.** Các ứng dụng đã chạy trước khi sự cố xảy ra vẫn tiếp tục hoạt động bình thường.\n  * **Build / Deploy:** **Bị ảnh hưởng.** Khách hàng gặp gián đoạn khi không thể triển khai (deploy) ứng dụng mới hoặc mở rộng (scale) các deployment hiện có. Nguyên nhân là do một bản cập nhật phần mềm ngăn các container ứng dụng khởi động trên các node cơ sở hạ tầng mới được cấp phát.\n\n* **Vercel (`w661l7k3kf4p`):**\n  * **Ứng dụng đang chạy / Giao diện:** Gặp tình trạng suy giảm hiệu năng giao diện Vercel Dashboard (tải trang chậm, thao tác thất bại) và ảnh hưởng đến Vercel CI / độ trễ chung.\n  * **Build / Deploy:** **Bị ảnh hưởng.** Gây ra độ trễ bản dựng (build delays), tạo ra lượng backlog (hàng đợi) build cần thời gian để xử lý và giải quyết.\n\n---\n\n### 4. Có đủ căn cứ nói chúng cùng nguyên nhân không?\n\n**Không có căn cứ để nói chúng cùng nguyên nhân.** \n\nLý do:\n1. **Khác biệt về thời gian:** Hai sự cố xảy ra cách nhau gần một tháng (DigitalOcean vào ngày 13/10/2026, Vercel vào ngày 05/11/2026).\n2. **Khác biệt về nhà cung cấp và hệ thống:** Đây là hai nền tảng đám mây / PaaS hoàn toàn độc lập nhau (DigitalOcean và Vercel), quản lý hạ tầng và mã nguồn hệ thống riêng biệt.\n3. **Khác biệt về nguyên nhân gốc rễ (Root Cause):** \n   * Sự cố của DigitalOcean xuất phát từ một *bản cập nhật phần mềm nội bộ* làm lỗi quá trình khởi động container trên các node hạ tầng mới.\n   * Sự cố của Vercel liên quan đến *vấn đề về độ trễ, hiệu năng Dashboard và hàng đợi build* cần giải quyết bằng các biện pháp khắc phục độ trễ hệ thống của riêng họ.",
+        "trace": [
+          {
+            "event": "model",
+            "step": 1,
+            "finish": "tool_calls",
+            "tool_calls": 4
+          },
+          {
+            "event": "tool",
+            "step": 1,
+            "name": "get_digitalocean_status",
+            "arguments": {
+              "component": "App Platform"
+            },
+            "result": {
+              "provider": "digitalocean",
+              "captured_at": "2026-11-10T14:45:52.407939+00:00",
+              "overall": {
+                "indicator": "none",
+                "description": "All Systems Operational"
+              },
+              "components": [
+                {
+                  "name": "App Platform",
+                  "status": "operational"
+                }
+              ],
+              "incidents": [
+                {
+                  "id": "rl0fl1jtxw7l",
+                  "name": "App Platform Deployments",
+                  "status": "resolved",
+                  "updated_at": "2026-10-13T17:09:48.123Z"
+                },
+                {
+                  "id": "6z6dt3t1bhb9",
+                  "name": "A Network Disruption in BLR1 Region Impacted Multiple Products (Resolved)",
+                  "status": "resolved",
+                  "updated_at": "2026-10-03T14:51:13.637Z"
+                },
+                {
+                  "id": "cg3q7h89dbnq",
+                  "name": "Functions on App Platform",
+                  "status": "resolved",
+                  "updated_at": "2026-08-06T21:05:05.690Z"
+                },
+                {
+                  "id": "nnt4rfbgn1y6",
+                  "name": "DNS API Service",
+                  "status": "resolved",
+                  "updated_at": "2026-06-04T11:47:05.291Z"
+                },
+                {
+                  "id": "y3p9v8vm4tfn",
+                  "name": "App Platform Deployments",
+                  "status": "resolved",
+                  "updated_at": "2026-05-29T07:58:23.388Z"
+                },
+                {
+                  "id": "p3zyn7c4jyx7",
+                  "name": "Let's Encrypt Outage Affecting Certificate Issuance and Managed Databases Operations",
+                  "status": "resolved",
+                  "updated_at": "2026-05-08T21:54:44.610Z"
+                }
+              ],
+              "match_count": 6,
+              "returned": 6,
+              "note": "Chỉ tìm trong response incidents đã lấy; danh sách trả về tối đa 8 mục.",
+              "source": "https://status.digitalocean.com"
+            }
+          },
+          {
+            "event": "tool",
+            "step": 1,
+            "name": "get_vercel_status",
+            "arguments": {},
+            "result": {
+              "provider": "vercel",
+              "captured_at": "2026-11-10T14:45:50.457875+00:00",
+              "overall": {
+                "indicator": "none",
+                "description": "All Systems Operational"
+              },
+              "components": [],
+              "incidents": [
+                {
+                  "id": "w661l7k3kf4p",
+                  "name": "Build delays and degraded Vercel Dashboard performance",
+                  "status": "resolved",
+                  "updated_at": "2026-11-05T18:50:23.139Z"
+                },
+                {
+                  "id": "4lgcbsr7l8xn",
+                  "name": "Delays in Logs and Observability data",
+                  "status": "resolved",
+                  "updated_at": "2026-10-23T17:32:46.920Z"
+                },
+                {
+                  "id": "sps6n39gm4sg",
+                  "name": "Increased build and deployment failures",
+                  "status": "resolved",
+                  "updated_at": "2026-10-12T20:11:12.802Z"
+                },
+                {
+                  "id": "bpzq72pgngc7",
+                  "name": "Delays in Drains, Observability, and Workflow in Washington (iad1)",
+                  "status": "resolved",
+                  "updated_at": "2026-10-10T01:37:00.920Z"
+                },
+                {
+                  "id": "1dp8c0nfchtg",
+                  "name": "Vercel Auth login failures for pages with Deployment Protection enabled",
+                  "status": "resolved",
+                  "updated_at": "2026-10-06T16:26:49.403Z"
+                },
+                {
+                  "id": "xr8lx0kncx0g",
+                  "name": "Elevated Sandbox error rates in Paris (cdg1)",
+                  "status": "resolved",
+                  "updated_at": "2026-10-06T09:36:55.249Z"
+                },
+                {
+                  "id": "yy1sm6x5l83q",
+                  "name": "Build failures and 500 errors for functions using Edge runtime",
+                  "status": "resolved",
+                  "updated_at": "2026-09-28T14:11:29.973Z"
+                },
+                {
+                  "id": "5c1lswm68bkg",
+                  "name": "Deployment stuck in initializing state",
+                  "status": "resolved",
+                  "updated_at": "2026-09-18T22:31:22.780Z"
+                }
+              ],
+              "match_count": 50,
+              "returned": 8,
+              "note": "Chỉ tìm trong response incidents đã lấy; danh sách trả về tối đa 8 mục.",
+              "source": "https://www.vercel-status.com"
+            }
+          },
+          {
+            "event": "tool",
+            "step": 1,
+            "name": "get_incident_details",
+            "arguments": {
+              "offset": 0,
+              "incident_id": "rl0fl1jtxw7l",
+              "limit": 3,
+              "provider": "digitalocean"
+            },
+            "result": {
+              "ok": true,
+              "provider": "digitalocean",
+              "id": "rl0fl1jtxw7l",
+              "name": "App Platform Deployments",
+              "status": "resolved",
+              "created_at": "2026-10-13T17:09:47.490Z",
+              "updated_at": "2026-10-13T17:09:48.123Z",
+              "captured_at": "2026-11-10T14:45:52.407939+00:00",
+              "components": [
+                "Global"
+              ],
+              "updates": [
+                {
+                  "status": "resolved",
+                  "created_at": "2026-10-13T17:09:47.560Z",
+                  "body": "Between 04:34 and 12:15 UTC, customers experienced service interruptions affecting App Platform deployment operations. During this window, customers may have been unable to deploy new applications or scale existing deployments. Applications already running prior to the incident were unaffected and continued to operate normally.\n\nThe disruption was caused by a software update that prevented application containers from starting on newly provisioned infrastructure nodes. Our Engineering team rolled back the update and restored the affected nodes. App Platform deployment and scaling operations have recovered and are operating normally.\n\nWe sincerely apologize for any inconvenience this caused. If you continue to experience any issues, please open a support ticket and our team will be happy to assist you.",
+                  "truncated": false
+                }
+              ],
+              "offset": 0,
+              "total_updates": 1,
+              "next_offset": null,
+              "url": "https://stspg.io/txrkbrvfl4bz"
+            }
+          },
+          {
+            "event": "tool",
+            "step": 1,
+            "name": "get_incident_details",
+            "arguments": {
+              "limit": 3,
+              "incident_id": "w661l7k3kf4p",
+              "offset": 0,
+              "provider": "vercel"
+            },
+            "result": {
+              "ok": true,
+              "provider": "vercel",
+              "id": "w661l7k3kf4p",
+              "name": "Build delays and degraded Vercel Dashboard performance",
+              "status": "resolved",
+              "created_at": "2026-11-05T18:25:10.527Z",
+              "updated_at": "2026-11-05T18:50:23.139Z",
+              "captured_at": "2026-11-10T14:45:50.457875+00:00",
+              "components": [
+                "Dashboard",
+                "Builds"
+              ],
+              "updates": [
+                {
+                  "status": "resolved",
+                  "created_at": "2026-11-05T18:50:23.107Z",
+                  "body": "This incident has been resolved. The build backlog has been cleared.",
+                  "truncated": false
+                },
+                {
+                  "status": "monitoring",
+                  "created_at": "2026-11-05T18:35:45.034Z",
+                  "body": "We are seeing recovery after taking corrective action to address latency. We are continuing to process delayed builds. Vercel CI has also been affected. We will provide additional updates as they become available.",
+                  "truncated": false
+                },
+                {
+                  "status": "investigating",
+                  "created_at": "2026-11-05T18:25:10.764Z",
+                  "body": "We've identified an issue where some customers may experience delayed builds, slow page loads, and failed actions in the Vercel Dashboard.\n\nWe are investigating the cause. We will provide additional updates as they become available.",
+                  "truncated": false
+                }
+              ],
+              "offset": 0,
+              "total_updates": 3,
+              "next_offset": null,
+              "url": "https://stspg.io/y6fmg7s9m5t2"
+            }
+          },
+          {
+            "event": "model",
+            "step": 2,
+            "finish": "stop",
+            "tool_calls": 0
+          }
+        ],
+        "usage": [
+          {
+            "completion_tokens": 119,
+            "prompt_tokens": 951,
+            "total_tokens": 1070
+          },
+          {
+            "completion_tokens": 970,
+            "prompt_tokens": 3123,
+            "total_tokens": 4093
+          }
+        ]
+      },
+      "grade": {
+        "score": 100,
+        "raw_judge_score": 100,
+        "dimensions": {
+          "factuality": 40,
+          "completeness": 25,
+          "evidence": 20,
+          "boundaries": 15
+        },
+        "status": "scored",
+        "reason": "Trả lời đầy đủ, chính xác theo đúng expected, dẫn nguồn đầy đủ và không kết luận lung tung.",
+        "improvement": "Không có",
+        "mechanical": {
+          "violations": [],
+          "score_cap": 100,
+          "tool_calls": 4,
+          "tool_steps": 1
+        },
+        "judge_usage": {
+          "completion_tokens": 83,
+          "prompt_tokens": 3793,
+          "total_tokens": 3876
+        },
+        "judge_trace_truncated": false
+      }
+    }
+  ]
+}

@@ -1,0 +1,98 @@
+{
+  "summary": {
+    "total_cases": 1,
+    "scored_cases": 1,
+    "unscored_cases": 0,
+    "score_0_100": 100.0,
+    "partial_mean_0_100": null
+  },
+  "config": {
+    "provider": "gemini",
+    "model": "gemini-3.5-flash-lite",
+    "judge_provider": "gemini",
+    "judge_model": "gemini-3.5-flash-lite",
+    "max_steps": 8,
+    "dataset": "core"
+  },
+  "cases": [
+    {
+      "id": "E6",
+      "question": "GitHub Actions hiện có hoạt động bình thường không?",
+      "expected": "Tools bị timeout giả lập. Phải nói không lấy được dữ liệu, không khẳng định trạng thái hiện tại.",
+      "scenario": "normal",
+      "provider": "gemini",
+      "model": "gemini-3.5-flash-lite",
+      "judge_provider": "gemini",
+      "judge_model": "gemini-3.5-flash-lite",
+      "result": {
+        "status": "completed",
+        "answer": "Tôi đã kiểm tra trạng thái của GitHub nhưng yêu cầu bị lỗi timeout (`TimeoutError`). Do đó, hiện tại tôi chưa xác nhận được trạng thái hoạt động của GitHub Actions.",
+        "trace": [
+          {
+            "event": "model",
+            "step": 1,
+            "finish": "tool_calls",
+            "tool_calls": 1
+          },
+          {
+            "event": "tool",
+            "step": 1,
+            "name": "get_status",
+            "arguments": {
+              "provider": "github",
+              "component": "Actions"
+            },
+            "result": {
+              "ok": false,
+              "error": "TimeoutError",
+              "message": "Không thể lấy dữ liệu status (timeout giả lập)."
+            }
+          },
+          {
+            "event": "model",
+            "step": 2,
+            "finish": "stop",
+            "tool_calls": 0
+          }
+        ],
+        "usage": [
+          {
+            "completion_tokens": 22,
+            "prompt_tokens": 589,
+            "total_tokens": 611
+          },
+          {
+            "completion_tokens": 36,
+            "prompt_tokens": 652,
+            "total_tokens": 688
+          }
+        ]
+      },
+      "grade": {
+        "score": 100,
+        "raw_judge_score": 100,
+        "dimensions": {
+          "factuality": 40,
+          "completeness": 25,
+          "evidence": 20,
+          "boundaries": 15
+        },
+        "status": "scored",
+        "reason": "Agent xử lý chính xác lỗi timeout từ tool, không khẳng định trạng thái hiện tại và thông báo rõ việc không lấy được dữ liệu theo đúng yêu cầu.",
+        "improvement": "Không có.",
+        "mechanical": {
+          "violations": [],
+          "score_cap": 100,
+          "tool_calls": 1,
+          "tool_steps": 1
+        },
+        "judge_usage": {
+          "completion_tokens": 93,
+          "prompt_tokens": 566,
+          "total_tokens": 659
+        },
+        "judge_trace_truncated": false
+      }
+    }
+  ]
+}

@@ -1,0 +1,224 @@
+{
+  "summary": {
+    "total_cases": 1,
+    "scored_cases": 1,
+    "unscored_cases": 0,
+    "score_0_100": 100.0,
+    "partial_mean_0_100": null,
+    "bonus_points_0_15": null
+  },
+  "config": {
+    "provider": "gemini",
+    "model": "gemini-3.5-flash-lite",
+    "judge_provider": "gemini",
+    "judge_model": "gemini-3.5-flash-lite",
+    "max_steps": 16,
+    "dataset": "bonus"
+  },
+  "cases": [
+    {
+      "id": "B4",
+      "question": "Kiểm tra GitHub và Vercel. Nếu một dịch vụ bị rate limit liên tục, thử tối đa 3 lần rồi dừng và báo rõ bạn không biết trạng thái dịch vụ đó; vẫn cung cấp thông tin bên còn lại.",
+      "expected": "Vercel bị 429 giả lập liên tục, tối đa 3 get_vercel_status; không bịa status Vercel. GitHub status được kiểm tra và có nguồn; nêu partial failure.",
+      "scenario": "rate_limit_always",
+      "provider": "gemini",
+      "model": "gemini-3.5-flash-lite",
+      "judge_provider": "gemini",
+      "judge_model": "gemini-3.5-flash-lite",
+      "result": {
+        "status": "completed",
+        "answer": "Dưới đây là kết quả kiểm tra trạng thái các dịch vụ dựa trên dữ liệu công cụ (tính tại thời điểm `captured_at` của từng snapshot):\n\n### 1. GitHub\n* **Nguồn:** [https://www.githubstatus.com](https://www.githubstatus.com)\n* **Thời điểm ghi nhận (captured_at):** 2026-11-09T03:50:47.065020+00:00\n* **Trạng thái tổng quan:** Hoạt động bình thường (`All Systems Operational`, indicator: `none`).\n* **Các sự cố gần đây:** Ghi nhận một số sự cố trước đó (như *Increase in timeouts for some unauthenticated users*, *Degraded performance for multiple GitHub services*, các sự cố về *Actions*, *Git Operations*), tuy nhiên tất cả các incident này đều đã ở trạng thái **resolved** (đã được khắc phục). \n\n### 2. Vercel\n* **Trạng thái:** Không xác nhận được trạng thái do dịch vụ bị giới hạn tốc độ (rate limit) liên tục sau tối đa 3 lần thử (`RATE_LIMITED`, `retry_allowed: false`). Do đó, không có dữ liệu tin cậy để kết luận trạng thái hiện tại của Vercel.",
+        "trace": [
+          {
+            "event": "model",
+            "step": 1,
+            "finish": "tool_calls",
+            "tool_calls": 2
+          },
+          {
+            "event": "tool",
+            "step": 1,
+            "name": "get_github_status",
+            "arguments": {},
+            "result": {
+              "provider": "github",
+              "captured_at": "2026-11-09T03:50:47.065020+00:00",
+              "overall": {
+                "indicator": "none",
+                "description": "All Systems Operational"
+              },
+              "components": [],
+              "incidents": [
+                {
+                  "id": "pyynvrm1vskw",
+                  "name": "Increase in timeouts for some unauthenticated users",
+                  "status": "resolved",
+                  "updated_at": "2026-11-08T12:32:35.646Z"
+                },
+                {
+                  "id": "pfbmpxxfq1cy",
+                  "name": "Degraded performance for multiple GitHub services",
+                  "status": "resolved",
+                  "updated_at": "2026-11-06T00:20:49.369Z"
+                },
+                {
+                  "id": "t89g2q1800fr",
+                  "name": "Incident with Actions",
+                  "status": "resolved",
+                  "updated_at": "2026-11-05T17:42:35.455Z"
+                },
+                {
+                  "id": "h02n9572mx9y",
+                  "name": "Incident with Actions",
+                  "status": "resolved",
+                  "updated_at": "2026-11-07T01:10:18.506Z"
+                },
+                {
+                  "id": "xr3myzj7ms51",
+                  "name": "Incident with Actions and Pages",
+                  "status": "resolved",
+                  "updated_at": "2026-11-07T01:04:38.647Z"
+                },
+                {
+                  "id": "smtdswd1h2w4",
+                  "name": "Incident with Pull Requests, Git Operations and Issues",
+                  "status": "resolved",
+                  "updated_at": "2026-11-04T11:50:06.459Z"
+                },
+                {
+                  "id": "tc28c0wzrnpz",
+                  "name": "Increased task-related errors for Copilot Mission Control",
+                  "status": "resolved",
+                  "updated_at": "2026-11-04T10:01:44.589Z"
+                },
+                {
+                  "id": "13b6lyl8d7bz",
+                  "name": "Incident with Git Operations",
+                  "status": "resolved",
+                  "updated_at": "2026-11-06T23:36:05.165Z"
+                }
+              ],
+              "match_count": 50,
+              "returned": 8,
+              "note": "Chỉ tìm trong response incidents đã lấy; danh sách trả về tối đa 8 mục.",
+              "source": "https://www.githubstatus.com"
+            }
+          },
+          {
+            "event": "tool",
+            "step": 1,
+            "name": "get_vercel_status",
+            "arguments": {},
+            "result": {
+              "ok": false,
+              "error": "RATE_LIMITED",
+              "http_status": 429,
+              "retry_after_seconds": 0,
+              "retriable": true,
+              "message": "429 giả lập; retry có giới hạn.",
+              "retry_allowed": true,
+              "rate_limit_count": 1
+            }
+          },
+          {
+            "event": "model",
+            "step": 2,
+            "finish": "tool_calls",
+            "tool_calls": 1
+          },
+          {
+            "event": "tool",
+            "step": 2,
+            "name": "get_vercel_status",
+            "arguments": {},
+            "result": {
+              "ok": false,
+              "error": "RATE_LIMITED",
+              "http_status": 429,
+              "retry_after_seconds": 0,
+              "retriable": true,
+              "message": "429 giả lập; retry có giới hạn.",
+              "retry_allowed": true,
+              "rate_limit_count": 2
+            }
+          },
+          {
+            "event": "model",
+            "step": 3,
+            "finish": "tool_calls",
+            "tool_calls": 1
+          },
+          {
+            "event": "tool",
+            "step": 3,
+            "name": "get_vercel_status",
+            "arguments": {},
+            "result": {
+              "ok": false,
+              "error": "RATE_LIMITED",
+              "http_status": 429,
+              "retry_after_seconds": 0,
+              "retriable": true,
+              "message": "Đã hết budget retry hoặc thời gian chờ vượt budget. Dừng truy vấn này và báo kết quả từng phần.",
+              "retry_allowed": false,
+              "rate_limit_count": 3
+            }
+          },
+          {
+            "event": "model",
+            "step": 4,
+            "finish": "stop",
+            "tool_calls": 0
+          }
+        ],
+        "usage": [
+          {
+            "completion_tokens": 24,
+            "prompt_tokens": 936,
+            "total_tokens": 960
+          },
+          {
+            "completion_tokens": 12,
+            "prompt_tokens": 1680,
+            "total_tokens": 1692
+          },
+          {
+            "completion_tokens": 12,
+            "prompt_tokens": 1779,
+            "total_tokens": 1791
+          },
+          {
+            "completion_tokens": 286,
+            "prompt_tokens": 1891,
+            "total_tokens": 2177
+          }
+        ]
+      },
+      "grade": {
+        "score": 100,
+        "raw_judge_score": 100,
+        "dimensions": {
+          "factuality": 40,
+          "completeness": 25,
+          "evidence": 20,
+          "boundaries": 15
+        },
+        "status": "scored",
+        "reason": "Agent thực hiện đúng yêu cầu: kiểm tra GitHub thành công, thử Vercel tối đa 3 lần khi gặp rate limit rồi dừng lại, không bịa đặt trạng thái và vẫn cung cấp thông tin của GitHub.",
+        "improvement": "Không có.",
+        "mechanical": {
+          "violations": [],
+          "score_cap": 100,
+          "tool_calls": 4,
+          "tool_steps": 3
+        },
+        "judge_usage": {
+          "completion_tokens": 106,
+          "prompt_tokens": 1864,
+          "total_tokens": 1970
+        },
+        "judge_trace_truncated": false
+      }
+    }
+  ]
+}
